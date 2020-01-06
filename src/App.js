@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Login from './components/Login';
+import RegisterAccount from './components/RegisterAccount';
 import Journal from './components/Journal';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
@@ -11,6 +12,7 @@ function App() {
     <Router>
       <div className="App">
         <Route exact path='/' component={Login} />
+        <Route path="/register" component={RegisterAccount} />
         <PrivateRoute path='/journal' component={Journal} />
       </div>
     </Router>
