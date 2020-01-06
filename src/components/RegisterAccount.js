@@ -6,8 +6,7 @@ const initialFormState = {
     firstName: '',
     lastName: '',
     email: '',
-    password: '',
-    isFetching: false
+    password: ''
 }
 
 const RegisterAccount = (props) => {
@@ -16,15 +15,12 @@ const RegisterAccount = (props) => {
 
     const register = (event) => {
         event.preventDefault();
-        setNewCredentials({
-          isFetching: true
-        })
         axiosWithAuth()
             .post('/auth/register', newCredentials)
             .then(res => {
                 console.log(res);
                 // localStorage.setItem('token', res.data.token);
-                // props.history.push('/');
+                props.history.push('/');
             })
             .catch(err => {
                 console.log(err)
@@ -32,6 +28,7 @@ const RegisterAccount = (props) => {
     }
 
     const handleChange = (event) => {
+        event.preventDefault();
         setNewCredentials({
             ...newCredentials,
             [event.target.name]: event.target.value
@@ -75,7 +72,6 @@ const RegisterAccount = (props) => {
                     required
                 />
                 <button>Submit</button>
-                {newCredentials.isFetching && 'registering...'}
             </form>
         </div>
     )
