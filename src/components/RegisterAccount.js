@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from 'axios';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 const initialFormState = {
     firstName: '',
@@ -10,63 +10,71 @@ const initialFormState = {
 }
 
 const RegisterAccount = (props) => {
-    const [form, setForm] = useState(initialFormState);
+    const [newCredentials, setNewCredentials] = useState(initialFormState);
+    // console.log(newCredentials);
+
+    const register = (event) => {
+        event.preventDefault();
+        setNewCredentials({
+          isFetching: true
+        })
+        axiosWithAuth()
+            .post('/auth/register', newCredentials)
+            .then(res => {
+                console.log(res);
+                // localStorage.setItem('token', res.data.token);
+                // props.history.push('/');
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
 
     const handleChange = (event) => {
-        setForm({
-            ...form,
+        setNewCredentials({
+            ...newCredentials,
             [event.target.name]: event.target.value
         });
     }
 
-    const handleSubmit = e => {
-        e.preventDefault();
-        axios.post('https://weight-lifting-journal-3.herokuapp.com/api/auth/register', form)
-            .then(res => {
-                console.log(res);
-                // localStorage.setItem('token', res.data.payload);
-                // props.history.push('/Login');
-            }).catch(error => console.log(error.response));
-    };
-
     return (
-        <div className="user-cont">
-            <h1>Weight Lifting Registeration</h1>
-            <form onSubmit={(event) => handleSubmit(event)}>
+        <div>
+            <h1>Sign-Up!</h1>
+            <form onSubmit={register}>
                 <input
-                    onChange={(event) => handleChange(event)}
+                    name='firstName'
+                    type='text'
                     placeholder="First Name"
-                    name="firstName"
-                    value={form.firstName}
-                    className="input"
+                    value={newCredentials.firstName}
+                    onChange={handleChange}
                     required
                 />
                 <input
-                    onChange={(event) => handleChange(event)}
+                    name='lastName'
+                    type='text'
                     placeholder="Last Name"
-                    name="lastName"
-                    value={form.lastName}
-                    className="input"
+                    value={newCredentials.lastName}
+                    onChange={handleChange}
                     required
                 />
                 <input
-                    onChange={(event) => handleChange(event)}
-                    placeholder="Password"
-                    name="password"
-                    value={form.password}
-                    className="input"
-                    type="password"
-                    required
-                />
-                <input
-                    onChange={(event) => handleChange(event)}
+                    name='email'
+                    type='text'
                     placeholder="Email"
-                    name="email"
-                    value={form.email}
-                    className="input"
+                    value={newCredentials.email}
+                    onChange={handleChange}
                     required
                 />
-                <button >Submit</button>
+                <input
+                    name='password'
+                    type='password'
+                    placeholder="Password"
+                    value={newCredentials.password}
+                    onChange={handleChange}
+                    required
+                />
+                <button>Submit</button>
+                {newCredentials.isFetching && 'registering...'}
             </form>
         </div>
     )
