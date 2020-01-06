@@ -34,33 +34,8 @@ export default class Signup extends Component {
   render() {
     return (
       <div className='Signup'>
-        <Form onSubmit={this.handleSubmit}>
-          <FormGroup controlId='confirmationCode' bsSize='large'>
-            <Form.Label>Confirmation Code</Form.Label>
-            <FormControl
-              autoFocus
-              type='tel'
-              onChange={this.handleChange}
-              value={this.state.confirmationCode}
-            />
-          </FormGroup>
-          <Button
-            block
-            type='submit'
-            bsSize='large'
-            disabled={!this.validateForm()}>
-            Verify
-          </Button>
-        </Form>
-      </div>
-    );
-  }
-
-  renderForm() {
-    return (
-      
       <Form onSubmit={this.handleSubmit}>
-        <FormGroup 
+      <FormGroup 
           controlId='email' 
           bsSize='large'>
           <FormLabel>Email</FormLabel>
@@ -95,7 +70,25 @@ export default class Signup extends Component {
           disabled={!this.validateForm()}>
           Signup
         </Button>
-      </Form>
+          <FormGroup controlId='confirmationCode' bsSize='large'>
+            <Form.Label>Confirmation Code</Form.Label>
+            <FormControl
+              autoFocus
+              type='tel'
+              onChange={this.handleChange}
+              value={this.state.confirmationCode}
+            />
+          </FormGroup>
+          <Button
+            block
+            type='submit'
+            bsSize='large'
+            disabled={!this.validateForm()}>
+            Verify
+          </Button>
+          
+        </Form>
+      </div>
     );
   }
 }
