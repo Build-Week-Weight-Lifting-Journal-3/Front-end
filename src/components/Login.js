@@ -1,63 +1,71 @@
-import React, { Component } from 'react'
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Bootstrap from "react-bootstrap";
-import {Link} from "react-router-dom";
+import React, { useState } from "react";
+import { Formik } from "formik";
+import * as EmailValidator from "email-validator";
+import * as Yup from "yup";
 
-
-
-export default class Login extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        email: "",
-        password:""
-      };
-    }
-
-    validateForm() {
-        return this.state.email.length > 0 && this.state.password.length > 0;
-    }
-    handleChange = event => {
-      this.setState({
-        [event.target.id]: event.target.value
-      });
-    }
-    
-    handleSubmit(event) {
-        event.preventDefault();
-    }
-    
-    render(){
-    return (
-        <div className="Login">
-        <form onSubmit={this.handleSubmit}>
-          <Form.Group controlId="email" bsSize="large">
-            <Form.Control
-              type="email"
-              value={this.state.email}
-              onChange={this.handleChange}
+const Login = () => {
+  return (
+    <Formik
+      initialValues={{ email: "", password: "" }}
+      onSubmit={(values, { setSubmitting }) => {
+        console.log("Submitting");
+      }}
+      validationSchema={Yup.object().shape({
+        email: Yup.string()
+          .email()
+          .required("Required"),
+        password: Yup.string()
+          .required("No password provided.")
+          .min(8, "Password is too short - should be 8 chars minimum.")
+          .matches(/(?=.*[0-9])/, "Password must contain a number.")
+      })}
+    >
+      {props => {
+        const {
+          values,
+          touched,
+          errors,
+          isSubmitting,
+          handleChange,
+          handleBlur,
+          handleSubmit
+        } = props;
+        return (
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="email">Email</label>
+            <input
+              name="email"
+              type="text"
+              placeholder="Enter your email"
+              value={values.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className={errors.email && touched.email && "error"}
             />
-          </Form.Group>
-          <Form.Group controlId="password" bsSize="large">
-            
-            <Form.Control
-              value={this.state.password}
-              onChange={this.handleChange}
+            {errors.email && touched.email && (
+              <div className="input-feedback">{errors.email}</div>
+            )}
+            <label htmlFor="email">Password</label>
+            <input
+              name="password"
               type="password"
+              placeholder="Enter your password"
+              value={values.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              className={errors.password && touched.password && "error"}
             />
-          </Form.Group>
-          <Link to ="/">
-            <Button 
-              block 
-              bsSize="large" 
-              disabled={!this.validateForm()} 
-              type="submit">
+            {errors.password && touched.password && (
+              <div className="input-feedback">{errors.password}</div>
+            )}
+            <button type="submit" disabled={isSubmitting}>
               Login
-            </Button>
-          </Link>
-        </form>
-      </div>
-    );
-  }  
-}
+            </button>
+          </form>
+        );
+      }}
+    </Formik>
+  );
+};
+
+export default Login;
