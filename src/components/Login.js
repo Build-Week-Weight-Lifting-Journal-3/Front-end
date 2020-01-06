@@ -9,7 +9,7 @@ const initialFormState = {
     isFetching: false
 }
 
-const Login = () => {
+const Login = (props) => {
     const [credentials, setCredentials] = useState(initialFormState);
 
     const login = (event) => {
@@ -21,8 +21,8 @@ const Login = () => {
           .post('/auth/login', credentials)
           .then(res => {
             console.log(res);
-            // localStorage.setItem('token', res.data.payload);
-            // props.history.push('/colors');
+            localStorage.setItem('token', res.data.payload);
+            props.history.push('/journal');
           })
           .catch(err => {
             console.log(err);
@@ -42,18 +42,36 @@ const Login = () => {
             <h1>Welcome!</h1>
             <form onSubmit={login}>
                 <input
+                    name='firstName'
                     type='text'
-                    name='email'
-                    placeholder='email'
-                    value={credentials.email}
+                    placeholder="First Name"
+                    value={credentials.firstName}
                     onChange={handleChange}
+                    required
                 />
                 <input
-                    type='password'
+                    name='lastName'
+                    type='text'
+                    placeholder="Last Name"
+                    value={credentials.lastName}
+                    onChange={handleChange}
+                    required
+                />
+                <input
+                    name='email'
+                    type='text'
+                    placeholder="Email"
+                    value={credentials.email}
+                    onChange={handleChange}
+                    required
+                />
+                <input
                     name='password'
-                    placeholder='password'
+                    type='password'
+                    placeholder="Password"
                     value={credentials.password}
                     onChange={handleChange}
+                    required
                 />
                 <button>Log in</button>
                 {credentials.isFetching && 'logging in'}
