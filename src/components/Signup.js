@@ -65,27 +65,14 @@ export default class Signup extends Component {
         
         <Button
           block
+          color='red'
+          backgroundColor='grey'
           type='submit'
           bsSize='large'
           disabled={!this.validateForm()}>
           Signup
         </Button>
-          <FormGroup controlId='confirmationCode' bsSize='large'>
-            <Form.Label>Confirmation Code</Form.Label>
-            <FormControl
-              autoFocus
-              type='tel'
-              onChange={this.handleChange}
-              value={this.state.confirmationCode}
-            />
-          </FormGroup>
-          <Button
-            block
-            type='submit'
-            bsSize='large'
-            disabled={!this.validateForm()}>
-            Verify
-          </Button>
+          
           
         </Form>
       </div>
