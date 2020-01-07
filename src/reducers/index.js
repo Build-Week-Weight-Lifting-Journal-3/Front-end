@@ -9,12 +9,7 @@ const initialState = {
     fetchingData: false,
     isLoggedIn: false,
     error: '',
-    // token: '',
     id: ''
-    // firstName: '',
-    // lastName: '',
-    // email: '',
-    // password: ''
 }
 
 export const reducer = (state = initialState, action) => {
@@ -40,15 +35,15 @@ export const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 fetchingData: true,
-                // token: action.payload,
-                // id: action.id
+                error: ''
             }
         case LOGIN_SUCCESS:
             return {
                 ...state,
                 fetchingData: false,
                 isLoggedIn: true,
-                id: action.payload
+                id: action.payload,
+                error: ''
             }
         case LOGIN_FAIL:
             return {

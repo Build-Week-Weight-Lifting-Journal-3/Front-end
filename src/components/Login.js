@@ -84,15 +84,10 @@ const Login = (props) => {
 
 const mapStateToProps = state => {
     return {
-        // fetchingData: state.fetchingData,
-        // isLoggedIn: state.isLoggedIn,
-        // error: state.error,
-        // token: state.token,
-        // id: state.id,
-        // firstName: state.id,
-        // lastName: state.lastName,
-        // email: state.email,
-        // password: state.password
+        fetchingData: state.fetchingData,
+        isLoggedIn: state.isLoggedIn,
+        error: state.error,
+        id: state.id
     }
 }
 
