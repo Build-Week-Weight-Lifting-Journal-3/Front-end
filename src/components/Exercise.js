@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
-import JournalCard from './JournalCard';
-import AddJournal from './AddJournal';
-import Exercise from './Exercise';
+import ExerciseCard from './ExerciseCard';
 import styled from 'styled-components';
 
 const GridStyle = styled.div`
@@ -14,15 +12,14 @@ const GridStyle = styled.div`
   justify-content: center;
   align-items: start;
   margin: 0 2rem;
-  margin-top:20px;
 `
 
-const Journal = () => {
+const Exercise = () => {
     const [exercises, setExcercises] = useState([]);
 
     const getData = () => {
         axiosWithAuth()
-            .get('/journals')
+            .get('/jouexe/:id')
             .then(res => {
                 console.log(res);
                 setExcercises(res.data);
@@ -38,24 +35,24 @@ const Journal = () => {
 
     return (
         <div>
-            <h1>Journal Entries</h1>
-            <div>Add Journal
-                <AddJournal></AddJournal>
-                </div>
+            <h1>Exercise Entries
+            </h1>
             <GridStyle>
-                {exercises.map((journal) => {
+                {exercises.map((jouexe) => {
                     return (
-                        <JournalCard
-                            key={journal.id}
-                            name={journal.name}
-                            date={journal.date}
+                        <ExerciseCard
+                            key={jouexe.id}
+                            name={jouexe.name}
+                            weight={jouexe.weight}
+                            reps={jouexe.reps}
+                            sets={jouexe.sets}
                         />
                     )
                 })}
             </GridStyle>
-
+            
         </div>
     )
 }
 
-export default Journal;
+export default Exercise;
