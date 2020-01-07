@@ -7,3 +7,12 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+.Signup {
+  background-color: black;
+  color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3.5rem;  
+}
