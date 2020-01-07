@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { login } from '../actions';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 const initialFormState = {
@@ -6,48 +8,49 @@ const initialFormState = {
     lastName: '',
     email: '',
     password: '',
-    isFetching: false
 }
 
 const Login = (props) => {
     const [credentials, setCredentials] = useState(initialFormState);
 
-    const login = (event) => {
+    // const login = (event) => {
+    //     event.preventDefault();
+    //     axiosWithAuth()
+    //       .post('/auth/login', credentials)
+    //       .then(res => {
+    //         console.log(res);
+    //         localStorage.setItem('token', res.data.token);
+    //         props.history.push('/journal');
+    //       })
+    //       .catch(err => {
+    //         console.log(err);
+    //       })
+    //   }
+
+    const handleChange = (event) => {
         event.preventDefault();
         setCredentials({
-          isFetching: true
+            ...credentials,
+            [event.target.name]: event.target.value
         })
-        axiosWithAuth()
-          .post('/auth/login', credentials)
-          .then(res => {
-            console.log(res);
-            localStorage.setItem('token', res.data.token);
-            props.history.push('/journal');
-          })
-          .catch(err => {
-            console.log(err);
-          })
-      }
-    
-      const handleChange = (event) => {
+    }
+
+    const handleSubmit = (event) => {
         event.preventDefault();
-        setCredentials({
-          ...credentials,
-          [event.target.name]: event.target.value
-        })
+        props.login(credentials);
     }
 
     return (
         <div>
             <h1>Welcome!</h1>
-            <form onSubmit={login}>
+            <form onSubmit={handleSubmit}>
                 <input
                     name='firstName'
                     type='text'
                     placeholder="First Name"
                     value={credentials.firstName}
                     onChange={handleChange}
-                    required
+                // required
                 />
                 <input
                     name='lastName'
@@ -55,7 +58,7 @@ const Login = (props) => {
                     placeholder="Last Name"
                     value={credentials.lastName}
                     onChange={handleChange}
-                    required
+                // required
                 />
                 <input
                     name='email'
@@ -63,7 +66,7 @@ const Login = (props) => {
                     placeholder="Email"
                     value={credentials.email}
                     onChange={handleChange}
-                    required
+                // required
                 />
                 <input
                     name='password'
@@ -71,13 +74,26 @@ const Login = (props) => {
                     placeholder="Password"
                     value={credentials.password}
                     onChange={handleChange}
-                    required
+                // required
                 />
                 <button>Log in</button>
-                {credentials.isFetching && 'logging in'}
             </form>
         </div>
     )
 }
 
-export default Login;
+const mapStateToProps = state => {
+    return {
+        // fetchingData: state.fetchingData,
+        // isLoggedIn: state.isLoggedIn,
+        // error: state.error,
+        // token: state.token,
+        // id: state.id,
+        // firstName: state.id,
+        // lastName: state.lastName,
+        // email: state.email,
+        // password: state.password
+    }
+}
+
+export default connect(mapStateToProps, { login })(Login);
