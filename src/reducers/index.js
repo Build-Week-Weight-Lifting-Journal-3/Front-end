@@ -3,9 +3,9 @@ import {
     LOGIN_START,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
-    // GET_JOURNAL_START,
-    // GET_JOURNAL_SUCCESS,
-    // GET_JOURNAL_FAIL,
+    GET_JOURNAL_START,
+    GET_JOURNAL_SUCCESS,
+    GET_JOURNAL_FAIL,
 } from '../actions';
 
 const initialState = {
@@ -53,22 +53,21 @@ export const reducer = (state = initialState, action) => {
             return {
                 error: action.payload
             }
-        // case GET_JOURNAL_START:
-        //     return {
-        //         ...state,
-        //         fetchingData: true,
-        //         data: action.payload.response
-        //     }
-        // case GET_JOURNAL_SUCCESS:
-        //     return {
-        //         ...state,
-        //         fetchingData: false,
-        //         data: action.payload.response
-        //     }
-        // case GET_JOURNAL_FAIL:
-        //     return {
-        //         error: action.payload
-        //     }
+        case GET_JOURNAL_START:
+            return {
+                ...state,
+                fetchingData: true
+            }
+        case GET_JOURNAL_SUCCESS:
+            return {
+                ...state,
+                fetchingData: false,
+                data: action.payload
+            }
+        case GET_JOURNAL_FAIL:
+            return {
+                error: action.payload
+            }
 
         default: return state;
     }

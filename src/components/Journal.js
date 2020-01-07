@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-// import { getJournals } from '../actions';
+import { getJournals } from '../actions';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
-import ExerciseCard from './ExerciseCard';
 import styled from 'styled-components';
 
 const GridStyle = styled.div`
@@ -16,23 +15,24 @@ const GridStyle = styled.div`
   margin: 0 2rem;
 `
 
-const Journal = () => {
+const Journal = (props) => {
     const [journals, setJournals] = useState([]);
 
-    const getJournals= () => {
-        axiosWithAuth()
-            .get('/journals')
-            .then(res => {
-                console.log(res);
-                setJournals(res.data);
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    }
+    // const getJournals= () => {
+    //     axiosWithAuth()
+    //         .get('/journals')
+    //         .then(res => {
+    //             console.log(res);
+    //             setJournals(res.data);
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //         })
+    // }
 
     useEffect(() => {
-        getJournals();
+        // console.log('blerp')
+        props.getJournals();
     }, [])
 
     const handleDelete = (event, id) => {
@@ -43,7 +43,7 @@ const Journal = () => {
         <div>
             <h1>My Journal</h1>
             <GridStyle>
-                {journals.map((ex) => {
+                {props.data.map((ex) => {
                     return (
                         <div key={ex.id}>
                             <p>{ex.name}</p>
@@ -56,12 +56,13 @@ const Journal = () => {
     )
 }
 
-export default Journal;
+// export default Journal;
 
-// const mapStateToProps = (state) => {
-//     return {
-//         data: state.data
-//     }
-// }
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        data: state.data
+    }
+}
 
-// export default connect(mapStateToProps, {getJournals})(Journal);
+export default connect(mapStateToProps, {getJournals})(Journal);

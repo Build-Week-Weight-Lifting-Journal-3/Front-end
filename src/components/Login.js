@@ -110,6 +110,7 @@ const Login = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         props.login(credentials);
+        props.history.push('/journal');
     }
 
     return (
