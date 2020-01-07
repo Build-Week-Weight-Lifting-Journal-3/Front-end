@@ -17,27 +17,29 @@ const UpdateJournal = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // props.updateJournal(props.id, input)
+        props.addJournal(input);
     }
 
     return (
         <div>
             <form onSubmit={handleSubmit}>
                 <input
-                    onChange={handleInputChange}
-                    placeholder='Name'
                     name='name'
+                    type='text'
+                    placeholder='Name'
                     // value={input.name}
+                    onChange={handleInputChange}
                     // required
                 />
                 <input
-                    onChange={handleInputChange}
-                    placeholder='Date'
                     name='date'
+                    type='text'
+                    placeholder='Date'
                     // value={input.date}
+                    onChange={handleInputChange}
                     // required
                 />
-                <button >Edit</button>
+                <button type='submit'>Add</button>
             </form>
         </div>
     )

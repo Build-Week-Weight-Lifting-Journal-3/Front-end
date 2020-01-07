@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getJournals } from '../actions';
+import { getJournals, addJournal, deleteJournal, updateJournal } from '../actions';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import UpdateJournal from './UpdateJournal';
 import styled from 'styled-components';
@@ -36,21 +36,22 @@ const Journal = (props) => {
         props.getJournals();
     }, [])
 
-    const handleDelete = (event, id) => {
-        event.preventDefault();
-    }
+    // const handleDelete = (event, id) => {
+    //     event.preventDefault();
+    //     props.deleteJournal();
+    // }
 
     return (
         <div>
             <h1>My Journal</h1>
+            <UpdateJournal addJournal={props.addJournal} updateJournal={props.updateJournal} />
             <GridStyle>
                 {props.data.map((j) => {
                     return (
                         <div key={j.id}>
                             <p>{j.name}</p>
                             <p>{j.date}</p>
-                            <button onClick={handleDelete}>Delete</button>
-                            <UpdateJournal />
+                            <button onClick={() => props.deleteJournal(j.id)}>Delete</button>
                         </div>
                     )
                 })}
@@ -66,4 +67,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {getJournals})(Journal);
+export default connect(mapStateToProps, { getJournals, addJournal, deleteJournal, updateJournal })(Journal);

@@ -17,9 +17,9 @@ export const UPDATE_JOURNAL_START = 'UPDATE_JOURNAL_START';
 export const UPDATE_JOURNAL_SUCCESS = 'UPDATE_JOURNAL_SUCCESS';
 export const UPDATE_JOURNAL_FAIL = 'UPDATE_JOURNAL_FAIL';
 
-// export const DELETE_JOURNAL_START = 'DELETE_JOURNAL_START';
-// export const DELETE_JOURNAL_SUCCESS = 'DELETE_JOURNAL_SUCCESS';
-// export const DELETE_JOURNAL_FAIL = 'DELETE_JOURNAL_FAIL';
+export const DELETE_JOURNAL_START = 'DELETE_JOURNAL_START';
+export const DELETE_JOURNAL_SUCCESS = 'DELETE_JOURNAL_SUCCESS';
+export const DELETE_JOURNAL_FAIL = 'DELETE_JOURNAL_FAIL';
 
 export const login = (credentials) => dispatch => {
     console.log(credentials);
@@ -53,6 +53,20 @@ export const getJournals = () => dispatch => {
     })
 }
 
+export const addJournal = (data) => dispatch => {
+    dispatch ({ type: ADD_JOURNAL_START });
+    return axiosWithAuth()
+    .post('/journals', data)
+    .then(res => {
+        console.log(res);
+        dispatch({ type: ADD_JOURNAL_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+        console.log(err);
+        dispatch({ type: ADD_JOURNAL_FAIL, payload: err });
+    })
+}
+
 export const updateJournal = (id, journalEntry) => dispatch => {
     console.log(journalEntry);
     dispatch({type: UPDATE_JOURNAL_START});
@@ -68,16 +82,16 @@ export const updateJournal = (id, journalEntry) => dispatch => {
     })
 }
 
-// export const deleteJournal = (id) => dispatch => {
-//     dispatch({ type: DELETE_JOURNAL_START })
-//     axiosWithAuth()
-//     .delete(`/journals/${id}`, {headers: {Authorization:localStorage.getItem('token')}})
-//         .then(res => {
-//             console.log(res);
-//             dispatch({ type: DELETE_JOURNAL_SUCCESS, payload: id});
-//         })
-//         .catch(err => {
-//             console.log(err);
-//             dispatch({ type: types.DELETE_JOURNAL_FAIL, payload: err });
-//         })
-// }
+export const deleteJournal = (id) => dispatch => {
+    dispatch({ type: DELETE_JOURNAL_START })
+    return axiosWithAuth()
+    .delete(`/journals/${id}`, {headers: {Authorization:localStorage.getItem('token')}})
+    .then(res => {
+        console.log(res);
+        dispatch({ type: DELETE_JOURNAL_SUCCESS, payload: id});
+    })
+    .catch(err => {
+        console.log(err);
+        dispatch({ type: DELETE_JOURNAL_FAIL, payload: err });
+    })
+}
