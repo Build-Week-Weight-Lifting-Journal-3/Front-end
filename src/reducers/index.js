@@ -6,11 +6,15 @@ import {
     GET_JOURNAL_START,
     GET_JOURNAL_SUCCESS,
     GET_JOURNAL_FAIL,
+    UPDATE_JOURNAL_START,
+    UPDATE_JOURNAL_SUCCESS,
+    UPDATE_JOURNAL_FAIL
 } from '../actions';
 
 const initialState = {
     fetchingData: false,
     isLoggedIn: false,
+    isUpdating: false,
     error: '',
     id: '',
     data: []
@@ -67,6 +71,21 @@ export const reducer = (state = initialState, action) => {
         case GET_JOURNAL_FAIL:
             return {
                 error: action.payload
+            }
+        case UPDATE_JOURNAL_START:
+            return {
+                ...state,
+                isUpdating: false
+            }
+        case UPDATE_JOURNAL_SUCCESS:
+            return {
+                ...state,
+                isUpdating: true
+            }
+        case UPDATE_JOURNAL_FAIL:
+            return {
+                ...state,
+                isUpdating: false
             }
 
         default: return state;
