@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+// import { getJournals } from '../actions';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 import ExerciseCard from './ExerciseCard';
 import styled from 'styled-components';
@@ -15,14 +17,14 @@ const GridStyle = styled.div`
 `
 
 const Journal = () => {
-    const [exercises, setExcercises] = useState([]);
+    const [journals, setJournals] = useState([]);
 
-    const getData = () => {
+    const getJournals= () => {
         axiosWithAuth()
-            .get('/exercises')
+            .get('/journals')
             .then(res => {
                 console.log(res);
-                setExcercises(res.data);
+                setJournals(res.data);
             })
             .catch(err => {
                 console.log(err);
@@ -30,20 +32,23 @@ const Journal = () => {
     }
 
     useEffect(() => {
-        getData();
+        getJournals();
     }, [])
+
+    const handleDelete = (event, id) => {
+        event.preventDefault();
+    }
 
     return (
         <div>
             <h1>My Journal</h1>
             <GridStyle>
-                {exercises.map((ex) => {
+                {journals.map((ex) => {
                     return (
-                        <ExerciseCard
-                            key={ex.id}
-                            name={ex.name}
-                            region={ex.region}
-                        />
+                        <div key={ex.id}>
+                            <p>{ex.name}</p>
+                            <p>{ex.date}</p>
+                        </div>
                     )
                 })}
             </GridStyle>
@@ -52,3 +57,11 @@ const Journal = () => {
 }
 
 export default Journal;
+
+// const mapStateToProps = (state) => {
+//     return {
+//         data: state.data
+//     }
+// }
+
+// export default connect(mapStateToProps, {getJournals})(Journal);
