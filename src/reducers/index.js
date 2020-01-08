@@ -1,5 +1,8 @@
 // import * as types from '../types';
 import {
+    SIGNUP_START,
+    SIGNUP_SUCCESS,
+    SIGNUP_FAIL,
     LOGIN_START,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
@@ -11,7 +14,16 @@ import {
     ADD_JOURNAL_FAIL,
     EDIT_JOURNAL_START,
     EDIT_JOURNAL_SUCCESS,
-    EDIT_JOURNAL_FAIL
+    EDIT_JOURNAL_FAIL,
+    GET_EXERCISE_START,
+    GET_EXERCISE_SUCCESS,
+    GET_EXERCISE_FAIL,
+    ADD_EXERCISE_START,
+    ADD_EXERCISE_SUCCESS,
+    ADD_EXERCISE_FAIL,
+    UPDATE_EXERCISE_START,
+    UPDATE_EXERCISE_SUCCESS,
+    UPDATE_EXERCISE_FAIL,
 } from '../actions';
 
 const initialState = {
@@ -21,13 +33,23 @@ const initialState = {
             date: ''
         }
     ],
+    exercises: [
+        {
+            name: '',
+            region: '',
+            weight: '',
+            reps: '',
+            sets: ''
+        }
+    ],
     fetchingData: false,
     isLoggedIn: false,
     isUpdating: false,
     isPosting: false,
     error: '',
     id: '',
-    data: []
+    data: [],
+    payload: {}
 }
 
 export const reducer = (state = initialState, action) => {
@@ -49,6 +71,24 @@ export const reducer = (state = initialState, action) => {
         //     return {
         //         error: action.payload
         //     }
+        case SIGNUP_START:
+            return {
+                ...state,
+                isPosting: false
+            };
+
+        case SIGNUP_SUCCESS:
+            return {
+                ...state,
+                isPosting: true
+            };
+
+        case SIGNUP_FAIL:
+            return {
+                ...state,
+                isPosting: false,
+                error: action.payload
+            };
         case LOGIN_START:
             return {
                 ...state,

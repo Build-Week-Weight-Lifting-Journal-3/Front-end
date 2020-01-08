@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
 import { login } from '../actions';
 import { Formik } from "formik";
 import * as Yup from "yup";
+
 
 const initialFormState = {
     // firstName: '',
@@ -86,6 +88,8 @@ const Login = (props) => {
     </Formik>
   )
 }
+
+{/* <Link to='/register'><button>Register Here!</button></Link> */}
 
 const mapStateToProps = state => {
     return {
