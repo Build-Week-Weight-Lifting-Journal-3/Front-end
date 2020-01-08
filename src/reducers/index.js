@@ -15,6 +15,9 @@ import {
     EDIT_JOURNAL_START,
     EDIT_JOURNAL_SUCCESS,
     EDIT_JOURNAL_FAIL,
+    DELETE_JOURNAL_START,
+    DELETE_JOURNAL_SUCCESS,
+    DELETE_JOURNAL_FAIL,
     GET_EXERCISE_START,
     GET_EXERCISE_SUCCESS,
     GET_EXERCISE_FAIL,
@@ -44,6 +47,7 @@ const initialState = {
     isLoggedIn: false,
     isUpdating: false,
     isPosting: false,
+    isDeleting: false,
     error: '',
     id: '',
     data: [],
@@ -148,12 +152,35 @@ export const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isUpdating: true,
-                journals: action.payload
+                data: action.payload
+                // data: state.data.map(entry => {
+                //     if (entry.id === action.payload.id)
+                //     {
+                //         return action.payload
+                //     }
+                //     return entry
+                // })
             }
         case EDIT_JOURNAL_FAIL:
             return {
                 ...state,
                 isUpdating: false
+            }
+        case DELETE_JOURNAL_START:
+            return {
+                ...state,
+                isDeleting: false
+            }
+        case DELETE_JOURNAL_SUCCESS:
+            return {
+                ...state,
+                isDeleting: true,
+                journals: action.payload
+            }
+        case DELETE_JOURNAL_FAIL:
+            return {
+                ...state,
+                isDeleting: false
             }
         case GET_EXERCISE_START:
             return {
