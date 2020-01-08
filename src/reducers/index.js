@@ -55,24 +55,9 @@ const initialState = {
 }
 
 export const reducer = (state = initialState, action) => {
+    // console.log(state);
+    // console.log(action);
     switch (action.type) {
-        // case REGISTER_START:
-        //     return {
-        //         ...state,
-        //         fetchingData: true,
-        //         token: action.payload,
-        //         id: action.id
-        //     }
-        // case REGISTER_SUCCESS:
-        //     return {
-        //         ...state,
-        //         fetchingData: false,
-        //         isLoggedIn: true
-        //     }
-        // case REGISTER_FAIL:
-        //     return {
-        //         error: action.payload
-        //     }
         case SIGNUP_START:
             return {
                 ...state,
@@ -135,6 +120,7 @@ export const reducer = (state = initialState, action) => {
                 ...state,
                 data: [...state.data, action.payload],
                 isPosting: false,
+                // id: action.payload,
                 error: null
             }
         case ADD_JOURNAL_FAIL:
@@ -175,7 +161,7 @@ export const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isDeleting: true,
-                journals: action.payload
+                journals: [...state.data, action.payload]
             }
         case DELETE_JOURNAL_FAIL:
             return {

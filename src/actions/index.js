@@ -42,6 +42,8 @@ export const DELETE_EXERCISE_START = 'DELETE_EXERCISE_START';
 export const DELETE_EXERCISE_SUCCESS = 'DELETE_EXERCISE_SUCCESS';
 export const DELETE_EXERCISE_FAIL = 'DELETE_EXERCISE_FAIL';
 
+export const EDIT_FIELDS = "EDIT_FIELDS";
+
 export const register = payload => dispatch => {
     console.log(payload, "register");
     dispatch({ type: SIGNUP_START });
@@ -67,7 +69,7 @@ export const login = (credentials) => dispatch => {
     .then(res => {
         console.log(res);
         localStorage.setItem('token', res.data.token);
-        dispatch({ type: LOGIN_SUCCESS, payload: res.data });
+        dispatch({ type: LOGIN_SUCCESS, payload: res.data.id });
         // history.push('/journal');
     })
     .catch(err => {
@@ -82,7 +84,7 @@ export const getJournals = () => dispatch => {
     return axiosWithAuth()
     .get('/journals')
     .then(res => {
-        console.log(res);
+        // console.log(res);
         dispatch({ type: GET_JOURNAL_SUCCESS, payload: res.data });
     })
     .catch(err => {
@@ -119,6 +121,13 @@ export const editJournal = (id) => dispatch => {
         dispatch({type: EDIT_JOURNAL_FAIL, payload: err});
     })
 }
+
+export const editFields = i => {
+    return {
+      type: EDIT_FIELDS,
+      payload: i
+    };
+  };
 
 export const deleteJournal = (id) => dispatch => {
     dispatch({ type: DELETE_JOURNAL_START })
