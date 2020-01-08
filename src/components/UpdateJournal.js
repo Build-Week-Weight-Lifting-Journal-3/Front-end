@@ -26,7 +26,7 @@ const UpdateJournal = (props) => {
                 <input
                     name='name'
                     type='text'
-                    placeholder='Name'
+                    placeholder='Journal Name'
                     // value={input.name}
                     onChange={handleInputChange}
                     // required

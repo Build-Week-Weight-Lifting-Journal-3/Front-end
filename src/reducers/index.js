@@ -10,7 +10,16 @@ import {
     ADD_JOURNAL_FAIL,
     UPDATE_JOURNAL_START,
     UPDATE_JOURNAL_SUCCESS,
-    UPDATE_JOURNAL_FAIL
+    UPDATE_JOURNAL_FAIL,
+    GET_EXERCISE_START,
+    GET_EXERCISE_SUCCESS,
+    GET_EXERCISE_FAIL,
+    ADD_EXERCISE_START,
+    ADD_EXERCISE_SUCCESS,
+    ADD_EXERCISE_FAIL,
+    UPDATE_EXERCISE_START,
+    UPDATE_EXERCISE_SUCCESS,
+    UPDATE_EXERCISE_FAIL,
 } from '../actions';
 
 const initialState = {
@@ -18,6 +27,21 @@ const initialState = {
         {
             name: '',
             date: ''
+        }
+    ],
+    fetchingData: false,
+    isLoggedIn: false,
+    isUpdating: false,
+    isPosting: false,
+    error: '',
+    id: '',
+    data: [],
+    exercises: [
+        {
+            name: '',
+            weight: '',
+            reps: '',
+            sets: ''
         }
     ],
     fetchingData: false,
@@ -111,6 +135,55 @@ export const reducer = (state = initialState, action) => {
                 isUpdating: true
             }
         case UPDATE_JOURNAL_FAIL:
+            return {
+                ...state,
+                isUpdating: false
+            }
+        case GET_EXERCISE_START:
+            return {
+                ...state,
+                fetchingData: true
+            }
+        case GET_EXERCISE_SUCCESS:
+            return {
+                ...state,
+                fetchingData: false,
+                data: action.payload
+            }
+        case GET_EXERCISE_FAIL:
+            return {
+                error: action.payload
+            }
+        case ADD_EXERCISE_START:
+            return {
+                ...state,
+                isPosting: true,
+                error: null
+            }
+        case ADD_EXERCISE_SUCCESS:
+            return {
+                ...state,
+                journals: action.payload,
+                isPosting: false,
+                error: null
+            }
+        case ADD_EXERCISE_FAIL:
+            return {
+                ...state,
+                isPosting: false,
+                error: action.payload
+            }
+        case UPDATE_EXERCISE_START:
+            return {
+                ...state,
+                isUpdating: false
+                }
+        case UPDATE_EXERCISE_SUCCESS:
+            return {
+                ...state,
+                isUpdating: true
+            }
+        case UPDATE_EXERCISE_FAIL:
             return {
                 ...state,
                 isUpdating: false

@@ -11,7 +11,7 @@ const ExerciseCard = (props) => {
   return (
     <CardStyle>
       <div>
-        <p>Name: {props.name}</p>
+        <p>{props.name}</p>
         <p>Weight: {props.weight}</p>
         <p>Reps: {props.reps}</p>
         <p>Sets: {props.sets}</p>

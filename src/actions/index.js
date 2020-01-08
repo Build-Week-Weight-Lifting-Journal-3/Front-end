@@ -20,6 +20,22 @@ export const DELETE_JOURNAL_START = 'DELETE_JOURNAL_START';
 export const DELETE_JOURNAL_SUCCESS = 'DELETE_JOURNAL_SUCCESS';
 export const DELETE_JOURNAL_FAIL = 'DELETE_JOURNAL_FAIL';
 
+export const GET_EXERCISE_START = 'GET_EXERCISE_START';
+export const GET_EXERCISE_SUCCESS = 'GET_EXERCISE_SUCCESS';
+export const GET_EXERCISE_FAIL = 'GET_EXERCISE_FAIL';
+
+export const ADD_EXERCISE_START = 'ADD_EXERCISE_START';
+export const ADD_EXERCISE_SUCCESS = 'ADD_EXERCISE_SUCCESS';
+export const ADD_EXERCISE_FAIL = 'ADD_EXERCISE_FAIL';
+
+export const UPDATE_EXERCISE_START = 'UPDATE_EXERCISE_START';
+export const UPDATE_EXERCISE_SUCCESS = 'UPDATE_EXERCISE_SUCCESS';
+export const UPDATE_EXERCISE_FAIL = 'UPDATE_EXERCISE_FAIL';
+
+export const DELETE_EXERCISE_START = 'DELETE_EXERCISE_START';
+export const DELETE_EXERCISE_SUCCESS = 'DELETE_EXERCISE_SUCCESS';
+export const DELETE_EXERCISE_FAIL = 'DELETE_EXERCISE_FAIL';
+
 export const login = (credentials) => dispatch => {
     console.log(credentials);
     dispatch({ type: LOGIN_START });
@@ -92,5 +108,63 @@ export const deleteJournal = (id) => dispatch => {
     .catch(err => {
         console.log(err);
         dispatch({ type: DELETE_JOURNAL_FAIL, payload: err });
+    })
+}
+
+export const getExercises = () => dispatch => {
+    // console.log();
+    dispatch({ type: GET_EXERCISE_START });
+    return axiosWithAuth()
+    .get('/exercises')
+    .then(res => {
+        console.log(res);
+        dispatch({ type: GET_EXERCISE_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+        // console.log(err);
+        dispatch({ type: GET_EXERCISE_FAIL, payload: err })
+    })
+}
+
+export const addExercise = (data) => dispatch => {
+    dispatch ({ type: ADD_EXERCISE_START });
+    return axiosWithAuth()
+    .post('/exercises', data)
+    .then(res => {
+        console.log(res);
+        dispatch({ type: ADD_EXERCISE_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+        console.log(err);
+        dispatch({ type: ADD_EXERCISE_FAIL, payload: err });
+    })
+}
+
+export const updateExercise = (id, exercise) => dispatch => {
+    console.log(exercise);
+    dispatch({type: UPDATE_EXERCISE_START});
+    return axiosWithAuth()
+    .put(`/exercises/${id}`, exercise)
+    .then(res => {
+        console.log(res);
+        dispatch({type: UPDATE_EXERCISE_SUCCESS, payload: res.data});
+    })
+    .catch(err => {
+        console.log(err);
+        dispatch({type: UPDATE_EXERCISE_FAIL, payload: err});
+    })
+}
+
+export const deleteExercise = (id) => dispatch => {
+    dispatch({ type: DELETE_EXERCISE_START })
+    return axiosWithAuth()
+    .delete(`/exercises/${id}`, {headers: {Authorization:localStorage.getItem('token')}})
+    .then(res => {
+        console.log(res);
+        dispatch({ type: DELETE_EXERCISE_SUCCESS, payload: id});
+    })
+    .catch(err => {
+        console.log(err);
+        dispatch({ type: DELETE_EXERCISE_FAIL, payload: err });
     })
 }
