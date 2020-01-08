@@ -1,44 +1,55 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios"
-import ExerciseCard from './ExerciseCard';
+import AnotherCard from './AnotherCard';
 import styled from 'styled-components';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
-
+const GridStyle = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-auto-rows: auto;
+  grid-gap: 20px;
+  grid-auto-flow: row;
+  justify-content: center;
+  align-items: start;
+  margin: 0 2rem;
+  color: #990000;
+  
+`
 
 
 export default function AnotherJournal(props) {
   // TODO: Add useState to track data from useEffect
-  const [exercises, setExercises] = useState([]);
+  const [exercises, setExcercises] = useState([]);
+    const getData = () => {
+    axiosWithAuth()
+        .get('/exercises')
+        .then(response => {
+            console.log("this is response", response);
+            setExcercises(response.data);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+  }
 
-    
-    useEffect(() => {
-    // TODO: Add API Request here - must run in `useEffect`
-    axios
-      .get("https://weight-lifting-journal-3.herokuapp.com/api/exercises")
-      .then(response => {
-        setExercises(response.data);
-
-        console.log("this is response", response);
-      })
-      .catch(error => {
-        console.error("WRRRONG", error);
-      });
-    
-  }, []);
+  useEffect(() => {
+    getData();
+  }, [])
   return (
     <div>
-        <h1>Exercises</h1>
-        <div>
-            {exercises.map((param) => {
+        <h1>Recomended Exercises</h1>
+        <GridStyle>
+            {exercises.map((exercises) => {
                 return (
-                    <ExerciseCard
-                        key={param.id}
-                        name={param.name}
-                        region={param.region}
+                    <AnotherCard
+                        key={exercises.id}
+                        name={exercises.name}
+                        region={exercises.region}
                     />
                 )
             })}
-        </div>
+        </GridStyle>       
     </div>
 )
 }
