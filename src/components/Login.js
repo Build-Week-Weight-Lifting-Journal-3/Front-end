@@ -82,14 +82,13 @@ const Login = (props) => {
             <button type="submit" disabled={isSubmitting}>
               Login
             </button>
+            <Link to='/register'><button>Register Here!</button></Link>
           </form>
         )
       }}
     </Formik>
   )
 }
-
-{/* <Link to='/register'><button>Register Here!</button></Link> */}
 
 const mapStateToProps = state => {
     return {

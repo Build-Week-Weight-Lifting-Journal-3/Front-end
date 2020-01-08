@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import { addJournal } from '../actions';
 import { connect } from 'react-redux';
 
-const initialFormValues = {
-    name: '',
-    date: ''
-}
+// const initialFormValues = {
+//     name: '',
+//     date: '',
+//     fart: ''
+// }
 
 const AddJournal = (props) => {
-    const [input, setInput] = useState(initialFormValues);
-    // console.log(input);
+    const [input, setInput] = useState(props.journals);
+    console.log(input);
 
     const handleInputChange = (event) => {
         setInput({ ...input, [event.target.name]: event.target.value });
@@ -18,7 +19,7 @@ const AddJournal = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         props.addJournal(input);
-        setInput(initialFormValues);
+        setInput(props.journals);
     }
 
     return (
@@ -47,8 +48,9 @@ const AddJournal = (props) => {
 }
 
 const mapStateToProps = (state) => {
+    console.log(state);
     return {
-        ...state
+        journals: state.journals
     }
 }
 

@@ -82,7 +82,7 @@ export const getJournals = () => dispatch => {
     return axiosWithAuth()
     .get('/journals')
     .then(res => {
-        // console.log(res);
+        console.log(res);
         dispatch({ type: GET_JOURNAL_SUCCESS, payload: res.data });
     })
     .catch(err => {
