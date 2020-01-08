@@ -14,15 +14,15 @@ const GridStyle = styled.div`
   margin: 0 2rem;
 `
 
-const Journal = () => {
-    const [exercises, setExcercises] = useState([]);
+const ExerciseList = () => {
+    const [exercises, setExercises] = useState([]);
 
-    const getData = () => {
+    const getExercises= () => {
         axiosWithAuth()
             .get('/exercises')
             .then(res => {
                 console.log(res);
-                setExcercises(res.data);
+                setExercises(res.data);
             })
             .catch(err => {
                 console.log(err);
@@ -30,12 +30,12 @@ const Journal = () => {
     }
 
     useEffect(() => {
-        getData();
+        getExercises();
     }, [])
 
     return (
         <div>
-            <h1>My Journal</h1>
+            <h1>Exercises</h1>
             <GridStyle>
                 {exercises.map((ex) => {
                     return (
@@ -51,4 +51,4 @@ const Journal = () => {
     )
 }
 
-export default Journal;
+export default ExerciseList;
