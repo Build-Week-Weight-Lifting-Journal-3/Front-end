@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { axiosWithAuth } from '../utils/axiosWithAuth';
-import ExerciseCard from './ExerciseCard';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { getExercises, deleteExercise, updateExercise} from '../actions';
+import AddExercise from './AddExercise';
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
+import ListofExercises from './ListofExercises';
+import ExerciseEdit from './ExerciseEdit';
 
 const GridStyle = styled.div`
   display: grid;
@@ -14,36 +18,37 @@ const GridStyle = styled.div`
   margin: 0 2rem;
 `
 
-const ExerciseList = () => {
-    const [exercises, setExercises] = useState([]);
 
-    const getExercises= () => {
-        axiosWithAuth()
-            .get('/exercises')
-            .then(res => {
-                console.log(res);
-                setExercises(res.data);
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    }
 
+const ExerciseList = (props) => {
+    // console.log();
+    
     useEffect(() => {
-        getExercises();
+        // console.log('blerp')
+        props.getExercises();
     }, [])
 
     return (
         <div>
-            <h1>Exercises</h1>
+            <Link to='/'><button>Logout</button></Link>
+            <Link to='/journal'><button>Journals</button></Link>
+            <h1>My Exercises</h1>
+            <ListofExercises/>
+            {/* <ExerciseEdit/> */}
+            <h1>Add Exercises to Journal</h1>
+            <AddExercise/>
+            <h1>Journal Exercises</h1>
             <GridStyle>
-                {exercises.map((ex) => {
+                {props.data.map((e) => {
                     return (
-                        <ExerciseCard
-                            key={ex.id}
-                            name={ex.name}
-                            region={ex.region}
-                        />
+                        <div key={e.id}>
+                            <p>{e.name}</p>
+                            <p>Weight: {e.weight}</p>
+                            <p>Reps: {e.reps}</p>
+                            <p>Sets: {e.sets}</p>
+                            <button onClick={() => props.deleteExercise(e.id)}>Delete</button>
+                            <button onClick={() => props.updateExercise(e.id)}>Edit</button>
+                        </div>
                     )
                 })}
             </GridStyle>
@@ -51,4 +56,12 @@ const ExerciseList = () => {
     )
 }
 
-export default ExerciseList;
+const mapStateToProps = (state) => {
+    // console.log(state);
+    return {
+        data: state.data,
+        isEditing: state.isEditing
+    }
+}
+
+export default connect(mapStateToProps, { getExercises, deleteExercise, updateExercise })(ExerciseList);

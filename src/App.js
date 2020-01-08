@@ -9,6 +9,7 @@ import PrivateRoute from './components/PrivateRoute';
 import './App.css';
 import Login from "./components/Login";
 import AnotherJournal from './components/AnotherJournal';
+import ExerciseEdit from './components/ExerciseEdit';
 
 function App() {
   return (

@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Link} from 'react-router-dom';
 
 const CardStyle = styled.div`
   text-align: center;
@@ -12,12 +11,13 @@ const ExerciseCard = (props) => {
     <CardStyle>
       <div>
         <p>{props.name}</p>
-        <p>Weight: {props.weight}</p>
-        <p>Reps: {props.reps}</p>
-        <p>Sets: {props.sets}</p>
+        <p>Region: {props.region}</p>
+        <p>ID: {props.id}</p>
       </div>
     </CardStyle>
   )
 }
+
+
 
 export default ExerciseCard;

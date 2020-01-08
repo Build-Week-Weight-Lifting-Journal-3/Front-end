@@ -138,7 +138,7 @@ export const getExercises = () => dispatch => {
     // console.log();
     dispatch({ type: GET_EXERCISE_START });
     return axiosWithAuth()
-    .get('/exercises')
+    .get(`/jouexe/`)
     .then(res => {
         console.log(res);
         dispatch({ type: GET_EXERCISE_SUCCESS, payload: res.data });
@@ -152,7 +152,7 @@ export const getExercises = () => dispatch => {
 export const addExercise = (data) => dispatch => {
     dispatch ({ type: ADD_EXERCISE_START });
     return axiosWithAuth()
-    .post('/exercises', data)
+    .post('/jouexe/', data)
     .then(res => {
         console.log(res);
         dispatch({ type: ADD_EXERCISE_SUCCESS, payload: res.data });
@@ -167,7 +167,7 @@ export const updateExercise = (id, exercise) => dispatch => {
     console.log(exercise);
     dispatch({type: UPDATE_EXERCISE_START});
     return axiosWithAuth()
-    .put(`/exercises/${id}`, exercise)
+    .put(`/jouexe/${id}`, exercise)
     .then(res => {
         console.log(res);
         dispatch({type: UPDATE_EXERCISE_SUCCESS, payload: res.data});
@@ -181,10 +181,10 @@ export const updateExercise = (id, exercise) => dispatch => {
 export const deleteExercise = (id) => dispatch => {
     dispatch({ type: DELETE_EXERCISE_START })
     return axiosWithAuth()
-    .delete(`/exercises/${id}`, {headers: {Authorization:localStorage.getItem('token')}})
+    .delete(`/jouexe/${id}`, {headers: {Authorization:localStorage.getItem('token')}})
     .then(res => {
         console.log(res);
-        dispatch({ type: DELETE_EXERCISE_SUCCESS, payload: id});
+        dispatch({ type: DELETE_EXERCISE_SUCCESS, payload: id.id});
     })
     .catch(err => {
         console.log(err);
