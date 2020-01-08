@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { withRouter } from 'react-router';
 
 import RegisterAccount from './components/RegisterAccount';
 import JournalList from './components/JournalList';
@@ -31,5 +30,3 @@ function App() {
 }
 
 export default App;
-
-// export default withRouter(App);

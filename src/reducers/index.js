@@ -103,6 +103,7 @@ export const reducer = (state = initialState, action) => {
             }
         case GET_JOURNAL_FAIL:
             return {
+                ...state,
                 error: action.payload
             }
         case ADD_JOURNAL_START:

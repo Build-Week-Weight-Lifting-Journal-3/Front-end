@@ -1,6 +1,6 @@
 // import * as types from '../types';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
-import { history } from '../index';
+// import { history } from '../index';
 
 export const SIGNUP_START = 'SIGNUP_START';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
@@ -55,7 +55,7 @@ export const register = payload => dispatch => {
         console.log(res.data);
         dispatch({ type: SIGNUP_SUCCESS, payload: res.data });
         window.localStorage.setItem("token", res.data.token);
-        history.push("/");
+        // history.push("/");
       })
       .catch(err => {
         console.log(err, "Wouldn't it be nice if I worked?");
@@ -72,7 +72,7 @@ export const login = (credentials) => dispatch => {
         // console.log(res);
         localStorage.setItem('token', res.data.token);
         dispatch({ type: LOGIN_SUCCESS, payload: res.data.id });
-        history.push('/journal');
+        // history.push('/journal');
     })
     .catch(err => {
         // console.log(err);

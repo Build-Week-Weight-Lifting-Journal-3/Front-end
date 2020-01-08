@@ -21,7 +21,9 @@ const Login = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     props.login(credentials);
-    // props.history.push('/journal');
+    setTimeout(() => {
+      props.history.push('/journal');
+    }, 800)
   }
 
   return (
@@ -44,7 +46,7 @@ const Login = (props) => {
           onChange={handleChange}
           required
         />
-        <button>Log in</button>
+        <button type="submit">Log in</button>
       </form>
       <Link to='/register'><button>Register Here!</button></Link>
     </div>
