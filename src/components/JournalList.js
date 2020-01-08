@@ -17,6 +17,7 @@ const GridStyle = styled.div`
 `
 
 const JournalList = (props) => {
+    // console.log();
     
     useEffect(() => {
         // console.log('blerp')
