@@ -16,3 +16,13 @@
   justify-content: center;
   padding: 3.5rem;  
 }
+
+.eInput {
+  background-color: black;
+  color: red;
+}
+
+.btn-primary {
+  background-color: darkgray;
+  color: red;
+}
