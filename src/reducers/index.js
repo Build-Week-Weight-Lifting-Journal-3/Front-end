@@ -158,12 +158,13 @@ export const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isDeleting: true,
-                data: action.payload
+                data: state.data.filter(i => action.payload !== i.id)
             }
         case DELETE_JOURNAL_FAIL:
             return {
                 ...state,
-                isDeleting: false
+                isDeleting: false,
+                error: action.payload
             }
         case GET_EXERCISE_START:
             return {
