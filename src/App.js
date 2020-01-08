@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import RegisterAccount from './components/RegisterAccount';
-import Journal from './components/Journal';
+import JournalList from './components/JournalList';
 import ExerciseList from './components/ExerciseList';
 import Signup from "./components/Signup.js";
 import PrivateRoute from './components/PrivateRoute';
@@ -17,7 +17,7 @@ function App() {
           <Route path="/register" component={RegisterAccount} />
           {/* <Route exact path='/Signup' component={Signup} /> */}
         <Switch>
-          <PrivateRoute path='/journal' component={Journal} />
+          <PrivateRoute path='/journal' component={JournalList} />
           <PrivateRoute path='/exercises' component={ExerciseList} />
         </Switch>
       </main>

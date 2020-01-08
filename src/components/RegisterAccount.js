@@ -18,7 +18,6 @@ const RegisterAccount = (props) => {
             .post('/auth/register', newCredentials)
             .then(res => {
                 console.log(res);
-                // localStorage.setItem('token', res.data.token);
                 props.history.push('/');
             })
             .catch(err => {

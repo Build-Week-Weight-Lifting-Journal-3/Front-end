@@ -13,9 +13,9 @@ export const ADD_JOURNAL_START = 'ADD_JOURNAL_START';
 export const ADD_JOURNAL_SUCCESS = 'ADD_JOURNAL_SUCCESS';
 export const ADD_JOURNAL_FAIL = 'ADD_JOURNAL_FAIL';
 
-export const UPDATE_JOURNAL_START = 'UPDATE_JOURNAL_START';
-export const UPDATE_JOURNAL_SUCCESS = 'UPDATE_JOURNAL_SUCCESS';
-export const UPDATE_JOURNAL_FAIL = 'UPDATE_JOURNAL_FAIL';
+export const EDIT_JOURNAL_START = 'EDIT_JOURNAL_START';
+export const EDIT_JOURNAL_SUCCESS = 'EDIT_JOURNAL_SUCCESS';
+export const EDIT_JOURNAL_FAIL = 'EDIT_JOURNAL_FAIL';
 
 export const DELETE_JOURNAL_START = 'DELETE_JOURNAL_START';
 export const DELETE_JOURNAL_SUCCESS = 'DELETE_JOURNAL_SUCCESS';
@@ -67,18 +67,18 @@ export const addJournal = (data) => dispatch => {
     })
 }
 
-export const updateJournal = (id, editValue) => dispatch => {
-    console.log(editValue);
-    dispatch({type: UPDATE_JOURNAL_START});
+export const editJournal = (id) => dispatch => {
+    console.log('edit item', id);
+    dispatch({type: EDIT_JOURNAL_START});
     return axiosWithAuth()
-    .put(`/journals/${id}`, editValue)
+    .put(`/journals/${id.id}`, id)
     .then(res => {
         console.log(res);
-        dispatch({type: UPDATE_JOURNAL_SUCCESS, payload: res.data});
+        dispatch({type: EDIT_JOURNAL_SUCCESS, payload: res.data});
     })
     .catch(err => {
         console.log(err);
-        dispatch({type: UPDATE_JOURNAL_FAIL, payload: err});
+        dispatch({type: EDIT_JOURNAL_FAIL, payload: err});
     })
 }
 

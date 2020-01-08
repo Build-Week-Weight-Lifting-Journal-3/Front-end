@@ -9,9 +9,9 @@ import {
     ADD_JOURNAL_START,
     ADD_JOURNAL_SUCCESS,
     ADD_JOURNAL_FAIL,
-    UPDATE_JOURNAL_START,
-    UPDATE_JOURNAL_SUCCESS,
-    UPDATE_JOURNAL_FAIL
+    EDIT_JOURNAL_START,
+    EDIT_JOURNAL_SUCCESS,
+    EDIT_JOURNAL_FAIL
 } from '../actions';
 
 const initialState = {
@@ -101,17 +101,18 @@ export const reducer = (state = initialState, action) => {
                 isPosting: false,
                 error: action.payload
             }
-        case UPDATE_JOURNAL_START:
+        case EDIT_JOURNAL_START:
             return {
                 ...state,
                 isUpdating: false
             }
-        case UPDATE_JOURNAL_SUCCESS:
+        case EDIT_JOURNAL_SUCCESS:
             return {
                 ...state,
-                isUpdating: true
+                isUpdating: true,
+                journals: action.payload
             }
-        case UPDATE_JOURNAL_FAIL:
+        case EDIT_JOURNAL_FAIL:
             return {
                 ...state,
                 isUpdating: false

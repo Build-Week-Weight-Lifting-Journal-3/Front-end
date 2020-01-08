@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { updateJournal } from '../actions';
+import { addJournal } from '../actions';
 import { connect } from 'react-redux';
 
 const initialFormValues = {
@@ -7,7 +7,7 @@ const initialFormValues = {
     date: ''
 }
 
-const UpdateJournal = (props) => {
+const AddJournal = (props) => {
     const [input, setInput] = useState(initialFormValues);
     // console.log(input);
 
@@ -18,6 +18,7 @@ const UpdateJournal = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         props.addJournal(input);
+        setInput(initialFormValues);
     }
 
     return (
@@ -27,7 +28,7 @@ const UpdateJournal = (props) => {
                     name='name'
                     type='text'
                     placeholder='Name'
-                    // value={input.name}
+                    value={input.name}
                     onChange={handleInputChange}
                     // required
                 />
@@ -35,7 +36,7 @@ const UpdateJournal = (props) => {
                     name='date'
                     type='text'
                     placeholder='Date'
-                    // value={input.date}
+                    value={input.date}
                     onChange={handleInputChange}
                     // required
                 />
@@ -47,8 +48,8 @@ const UpdateJournal = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        // posts: state.plans.posts
+        ...state
     }
 }
 
-export default connect(mapStateToProps, {updateJournal})(UpdateJournal);
+export default connect(mapStateToProps, {addJournal})(AddJournal);

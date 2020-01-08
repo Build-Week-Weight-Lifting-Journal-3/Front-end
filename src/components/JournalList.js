@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getJournals, addJournal, deleteJournal, updateJournal } from '../actions';
-import UpdateJournal from './UpdateJournal';
+import { getJournals, deleteJournal, editJournal } from '../actions';
+import AddJournal from './AddJournal';
 import styled from 'styled-components';
 
 const GridStyle = styled.div`
@@ -15,7 +15,7 @@ const GridStyle = styled.div`
   margin: 0 2rem;
 `
 
-const Journal = (props) => {
+const JournalList = (props) => {
     
     useEffect(() => {
         // console.log('blerp')
@@ -25,7 +25,7 @@ const Journal = (props) => {
     return (
         <div>
             <h1>My Journal</h1>
-            <UpdateJournal addJournal={props.addJournal} updateJournal={props.updateJournal} />
+            <AddJournal />
             <GridStyle>
                 {props.data.map((j) => {
                     return (
@@ -33,6 +33,7 @@ const Journal = (props) => {
                             <p>{j.name}</p>
                             <p>{j.date}</p>
                             <button onClick={() => props.deleteJournal(j.id)}>Delete</button>
+                            <button onClick={() => props.editJournal(j.id)}>Edit</button>
                         </div>
                     )
                 })}
@@ -44,8 +45,9 @@ const Journal = (props) => {
 const mapStateToProps = (state) => {
     // console.log(state);
     return {
-        data: state.data
+        data: state.data,
+        isEditing: state.isEditing
     }
 }
 
-export default connect(mapStateToProps, { getJournals, addJournal, deleteJournal, updateJournal })(Journal);
+export default connect(mapStateToProps, { getJournals, deleteJournal, editJournal })(JournalList);
