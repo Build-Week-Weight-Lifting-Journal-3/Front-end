@@ -1,4 +1,5 @@
 import { axiosWithAuth } from '../utils/axiosWithAuth';
+import {history} from '../index';
 
 export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -168,3 +169,25 @@ export const deleteExercise = (id) => dispatch => {
         dispatch({ type: DELETE_EXERCISE_FAIL, payload: err });
     })
 }
+
+export const SIGNUP_START = "SIGNUP_START";
+export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
+export const SIGNUP_ERROR = "SIGNUP_ERROR";
+
+export const register = payload => dispatch => {
+  console.log(payload, "register");
+  dispatch({ type: SIGNUP_START });
+  axiosWithAuth()
+    .post("/auth/register", payload)
+   
+    .then(res => {
+      console.log(res.data);
+      dispatch({ type: SIGNUP_SUCCESS, payload: res.data });
+      window.localStorage.setItem("token", res.data.token);
+      history.push("/");
+    })
+    .catch(err => {
+      console.log(err, "Wouldn't it be nice if I worked?");
+      dispatch({ type: SIGNUP_ERROR, payload: err });
+    });
+};

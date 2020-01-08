@@ -20,7 +20,9 @@ import {
     UPDATE_EXERCISE_START,
     UPDATE_EXERCISE_SUCCESS,
     UPDATE_EXERCISE_FAIL,
-} from '../actions';
+} from '../actions/index';
+import { SIGNUP_START, SIGNUP_SUCCESS, SIGNUP_ERROR, 
+} from "../actions/index";
 
 const initialState = {
     journals: [
@@ -39,18 +41,13 @@ const initialState = {
     exercises: [
         {
             name: '',
+            region: '',
             weight: '',
             reps: '',
             sets: ''
         }
     ],
-    fetchingData: false,
-    isLoggedIn: false,
-    isUpdating: false,
-    isPosting: false,
-    error: '',
-    id: '',
-    data: []
+
 }
 
 export const reducer = (state = initialState, action) => {
@@ -192,3 +189,33 @@ export const reducer = (state = initialState, action) => {
         default: return state;
     }
 }
+  
+  const initialRegState = {
+    payload: {},
+    isLoggedIn: false
+  };
+  
+  export function authReducer(state = initialRegState, action) {
+    switch (action.type) {
+      case SIGNUP_START:
+        return {
+          ...state,
+          isLoggedIn: false
+        };
+  
+      case SIGNUP_SUCCESS:
+        return {
+          ...state,
+          isLoggedIn: true
+        };
+  
+      case SIGNUP_ERROR:
+        return {
+          ...state,
+          isLoggedIn: false,
+          error: action.payload
+        };
+  
+      default: return state;
+    }
+  }
