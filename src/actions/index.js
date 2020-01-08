@@ -44,7 +44,7 @@ export const getJournals = () => dispatch => {
     return axiosWithAuth()
     .get('/journals')
     .then(res => {
-        console.log(res);
+        // console.log(res);
         dispatch({ type: GET_JOURNAL_SUCCESS, payload: res.data });
     })
     .catch(err => {
@@ -67,11 +67,11 @@ export const addJournal = (data) => dispatch => {
     })
 }
 
-export const updateJournal = (id, journalEntry) => dispatch => {
-    console.log(journalEntry);
+export const updateJournal = (id, editValue) => dispatch => {
+    console.log(editValue);
     dispatch({type: UPDATE_JOURNAL_START});
     return axiosWithAuth()
-    .put(`/journals/${id}`, journalEntry)
+    .put(`/journals/${id}`, editValue)
     .then(res => {
         console.log(res);
         dispatch({type: UPDATE_JOURNAL_SUCCESS, payload: res.data});
@@ -85,7 +85,7 @@ export const updateJournal = (id, journalEntry) => dispatch => {
 export const deleteJournal = (id) => dispatch => {
     dispatch({ type: DELETE_JOURNAL_START })
     return axiosWithAuth()
-    .delete(`/journals/${id}`, {headers: {Authorization:localStorage.getItem('token')}})
+    .delete(`/journals/${id}`)
     .then(res => {
         console.log(res);
         dispatch({ type: DELETE_JOURNAL_SUCCESS, payload: id});

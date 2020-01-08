@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { axiosWithAuth } from '../utils/axiosWithAuth';
-import axios from 'axios';
 
 const initialFormState = {
     firstName: '',

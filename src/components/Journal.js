@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getJournals, addJournal, deleteJournal, updateJournal } from '../actions';
-import { axiosWithAuth } from '../utils/axiosWithAuth';
 import UpdateJournal from './UpdateJournal';
 import styled from 'styled-components';
 
@@ -17,29 +16,11 @@ const GridStyle = styled.div`
 `
 
 const Journal = (props) => {
-    // const [journals, setJournals] = useState([]);
-
-    // const getJournals= () => {
-    //     axiosWithAuth()
-    //         .get('/journals')
-    //         .then(res => {
-    //             console.log(res);
-    //             setJournals(res.data);
-    //         })
-    //         .catch(err => {
-    //             console.log(err);
-    //         })
-    // }
-
+    
     useEffect(() => {
         // console.log('blerp')
         props.getJournals();
     }, [])
-
-    // const handleDelete = (event, id) => {
-    //     event.preventDefault();
-    //     props.deleteJournal();
-    // }
 
     return (
         <div>
@@ -61,7 +42,7 @@ const Journal = (props) => {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
+    // console.log(state);
     return {
         data: state.data
     }
