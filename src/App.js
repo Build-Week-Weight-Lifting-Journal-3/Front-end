@@ -7,8 +7,7 @@ import Signup from "./components/Signup.js";
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
 import Login from "./components/Login";
-import Exercises from "./components/Exercises";
-import ExerciseInput from './components/ExerciseInput';
+import Exercises from "./components/ExerciseJournal";
 
 function App() {
   return (
@@ -18,7 +17,6 @@ function App() {
         <Route path="/register" component={RegisterAccount} />
         <PrivateRoute path='/journal' component={Journal} />
         <Route exact path='/Signup' component={Signup} />
-        <ExerciseInput />
         <Exercises />
       </main>
     </Router>
