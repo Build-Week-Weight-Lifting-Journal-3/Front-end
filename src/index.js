@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
+import createBrowserHistory from "history/createBrowserHistory";
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import App from './App';
@@ -10,6 +11,8 @@ import './index.css';
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+export const history = createBrowserHistory();
 
 const store = createStore(
     reducer,

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getJournals, deleteJournal, editJournal } from '../actions';
 import AddJournal from './AddJournal';
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 
 const GridStyle = styled.div`
@@ -16,6 +17,7 @@ const GridStyle = styled.div`
 `
 
 const JournalList = (props) => {
+    // console.log();
     
     useEffect(() => {
         // console.log('blerp')
@@ -24,13 +26,14 @@ const JournalList = (props) => {
 
     return (
         <div>
+            <Link to='/'><button>Logout</button></Link>
             <h1>My Journal</h1>
             <AddJournal />
             <GridStyle>
                 {props.data.map((j) => {
                     return (
                         <div key={j.id}>
-                            <p>{j.name}</p>
+                            <Link to='/exercises'><button>{j.name}</button></Link>
                             <p>{j.date}</p>
                             <button onClick={() => props.deleteJournal(j.id)}>Delete</button>
                             <button onClick={() => props.editJournal(j.id)}>Edit</button>
