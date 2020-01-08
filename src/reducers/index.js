@@ -30,10 +30,6 @@ import {
 } from '../actions';
 
 const initialState = {
-    journals: {
-        name: '',
-        date: ''
-    },
     exercises: [
         {
             name: '',
@@ -161,7 +157,7 @@ export const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isDeleting: true,
-                journals: [...state.data, action.payload]
+                data: action.payload
             }
         case DELETE_JOURNAL_FAIL:
             return {

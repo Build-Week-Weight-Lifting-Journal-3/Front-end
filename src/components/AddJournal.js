@@ -55,9 +55,8 @@ const AddJournal = (props) => {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
+    // console.log(state);
     return {
-        journals: state.journals,
         id: state.id
     }
 }

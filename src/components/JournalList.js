@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getJournals, deleteJournal, editJournal, editFields } from '../actions';
+import { getJournals, deleteJournal, editJournal, editFields, logout } from '../actions';
 import AddJournal from './AddJournal';
 import EditJournal from './EditJournal';
 import { Link } from 'react-router-dom';
@@ -24,12 +24,18 @@ const JournalList = (props) => {
         props.getJournals();
     }, [])
 
+    const signOut = () => {
+        localStorage.clear('token');
+        props.logout();
+        props.history.push('/');
+    }
+
     return (
         <div>
-            <Link to='/'><button>Logout</button></Link>
+            <button onClick={signOut}>Logout</button>
             <h1>My Journal</h1>
             <AddJournal />
-            <EditJournal />
+            {/* <EditJournal /> */}
             <GridStyle>
                 {props.data.map((j) => {
                     return (
@@ -57,4 +63,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { getJournals, deleteJournal, editJournal, editFields })(JournalList);
+export default connect(mapStateToProps, { getJournals, deleteJournal, editJournal, editFields, logout })(JournalList);

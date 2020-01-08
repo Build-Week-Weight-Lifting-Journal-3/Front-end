@@ -20,7 +20,7 @@ function Signup(props) {
     const handleSubmit = event => {
         event.preventDefault();
         props.register(payload);
-        props.history.push("/");
+        // props.history.push("/");
   
       console.log(handleSubmit);
     };

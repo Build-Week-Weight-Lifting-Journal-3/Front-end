@@ -1,23 +1,24 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
 import RegisterAccount from './components/RegisterAccount';
 import JournalList from './components/JournalList';
 import ExerciseList from './components/ExerciseList';
-import Signup from "./components/Signup.js";
+import Signup from './components/Signup.js';
 import PrivateRoute from './components/PrivateRoute';
 import './App.css';
-import Login from "./components/Login";
+import Login from './components/Login';
 import AnotherJournal from './components/AnotherJournal';
 import NavBar from './components/NavBar';
 
 function App() {
   return (
     <Router>
-      <main className="App">
+      <main className='App'>
           <NavBar />
           <Route exact path='/' component={Login} />
-          <Route path="/register" component={RegisterAccount} />
+          <Route path='/register' component={RegisterAccount} />
           {/* <Route exact path='/Signup' component={Signup} /> */}
         <Switch>
           <PrivateRoute exact path='/journal' component={JournalList} />
@@ -30,3 +31,5 @@ function App() {
 }
 
 export default App;
+
+// export default withRouter(App);

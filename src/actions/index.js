@@ -10,6 +10,8 @@ export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 
+export const LOGOUT = 'LOGOUT';
+
 export const GET_JOURNAL_START = 'GET_JOURNAL_START';
 export const GET_JOURNAL_SUCCESS = 'GET_JOURNAL_SUCCESS';
 export const GET_JOURNAL_FAIL = 'GET_JOURNAL_FAIL';
@@ -62,19 +64,31 @@ export const register = payload => dispatch => {
   };
 
 export const login = (credentials) => dispatch => {
-    console.log(credentials);
+    // console.log(credentials);
     dispatch({ type: LOGIN_START });
     return axiosWithAuth()
     .post('auth/login', credentials)
     .then(res => {
-        console.log(res);
+        // console.log(res);
         localStorage.setItem('token', res.data.token);
         dispatch({ type: LOGIN_SUCCESS, payload: res.data.id });
-        // history.push('/journal');
+        history.push('/journal');
     })
     .catch(err => {
         // console.log(err);
         dispatch({ type: LOGIN_FAIL, payload: err })
+    })
+}
+
+export const logout = (credentials) => dispatch => {
+    dispatch({ type: LOGOUT });
+    return axiosWithAuth()
+    .put(`auth/logout`, credentials)
+    .then((res) => {
+        console.log(res);
+    })
+    .catch((err) => {
+        console.log(err);
     })
 }
 
