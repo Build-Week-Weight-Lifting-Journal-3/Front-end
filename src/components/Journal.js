@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { getJournals, addJournal, deleteJournal, updateJournal } from '../actions';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
-import JournalCard from './JournalCard';
-import AddJournal from './AddJournal';
-import Exercise from './Exercise';
+import UpdateJournal from './UpdateJournal';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 
 const GridStyle = styled.div`
   display: grid;
@@ -14,48 +15,58 @@ const GridStyle = styled.div`
   justify-content: center;
   align-items: start;
   margin: 0 2rem;
-  margin-top:20px;
 `
 
-const Journal = () => {
-    const [exercises, setExcercises] = useState([]);
+const Journal = (props) => {
+    // const [journals, setJournals] = useState([]);
 
-    const getData = () => {
-        axiosWithAuth()
-            .get('/journals')
-            .then(res => {
-                console.log(res);
-                setExcercises(res.data);
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    }
+    // const getJournals= () => {
+    //     axiosWithAuth()
+    //         .get('/journals')
+    //         .then(res => {
+    //             console.log(res);
+    //             setJournals(res.data);
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //         })
+    // }
 
     useEffect(() => {
-        getData();
+        // console.log('blerp')
+        props.getJournals();
     }, [])
+
+    // const handleDelete = (event, id) => {
+    //     event.preventDefault();
+    //     props.deleteJournal();
+    // }
 
     return (
         <div>
-            <h1>Journal Entries</h1>
-            <div>Add Journal
-                <AddJournal></AddJournal>
-                </div>
+            <Link to='/'><button>Logout</button></Link>
+            <h1>My Journal</h1>
+            <UpdateJournal addJournal={props.addJournal} updateJournal={props.updateJournal} />
             <GridStyle>
-                {exercises.map((journal) => {
+                {props.data.map((j) => {
                     return (
-                        <JournalCard
-                            key={journal.id}
-                            name={journal.name}
-                            date={journal.date}
-                        />
+                        <div key={j.id}>
+                            <Link to='/exercises'><button>{j.name}</button></Link>
+                            <p>{j.date}</p>
+                            <button onClick={() => props.deleteJournal(j.id)}>Delete</button>
+                        </div>
                     )
                 })}
             </GridStyle>
-
         </div>
     )
 }
 
-export default Journal;
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        data: state.data
+    }
+}
+
+export default connect(mapStateToProps, { getJournals, addJournal, deleteJournal, updateJournal })(Journal);

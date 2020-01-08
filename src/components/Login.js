@@ -74,6 +74,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { login } from '../actions';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
+import {Link} from 'react-router-dom';
 
 const initialFormState = {
     firstName: '',
@@ -110,28 +111,13 @@ const Login = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         props.login(credentials);
+        props.history.push('/journal');
     }
 
     return (
         <div>
             <h1>Welcome!</h1>
             <form onSubmit={handleSubmit}>
-                <input
-                    name='firstName'
-                    type='text'
-                    placeholder="First Name"
-                    value={credentials.firstName}
-                    onChange={handleChange}
-                // required
-                />
-                <input
-                    name='lastName'
-                    type='text'
-                    placeholder="Last Name"
-                    value={credentials.lastName}
-                    onChange={handleChange}
-                // required
-                />
                 <input
                     name='email'
                     type='text'
@@ -150,6 +136,7 @@ const Login = (props) => {
                 />
                 <button>Log in</button>
             </form>
+            <Link to='/register'><button>Register Here!</button></Link>
         </div>
     )
 }

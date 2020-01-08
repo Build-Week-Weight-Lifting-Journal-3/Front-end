@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { axiosWithAuth } from '../utils/axiosWithAuth';
+import {Link} from 'react-router-dom';
 
 const initialFormState = {
     firstName: '',
@@ -72,6 +73,8 @@ const RegisterAccount = (props) => {
                 />
                 <button>Submit</button>
             </form>
+            <Link to='/'><button>Already Have an Account?</button></Link>
+
         </div>
     )
 }

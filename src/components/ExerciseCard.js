@@ -15,8 +15,6 @@ const ExerciseCard = (props) => {
         <p>Weight: {props.weight}</p>
         <p>Reps: {props.reps}</p>
         <p>Sets: {props.sets}</p>
-        <button> <Link to ={`/update-exercise`}>Update Exercise</Link></button>
-        <button onClick={this.handleDelete}>Delete</button>
       </div>
     </CardStyle>
   )

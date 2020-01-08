@@ -26,8 +26,6 @@ const JournalCard = (props) => {
       <div>
         <p>{props.name}</p>
         <p>{props.date}</p>
-        {/* <button> <Link to ={`/journal/:id`}>Update Journal</Link></button>
-        <button onClick={this.handleDelete}>Delete</button> */}
       </div>
     </CardStyle>
     
