@@ -19,7 +19,7 @@ function App() {
           {/* <Route exact path='/Signup' component={Signup} /> */}
         <Switch>
           <PrivateRoute path='/journal' component={JournalList} />
-          <Route exact path='/anotherjournal' component={AnotherJournal} />
+          <PrivateRoute exact path='/anotherjournal' component={AnotherJournal} />
           <PrivateRoute path='/exercises' component={ExerciseList} />
         </Switch>
       </main>
