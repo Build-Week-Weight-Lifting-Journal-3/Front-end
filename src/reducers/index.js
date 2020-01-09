@@ -29,16 +29,17 @@ import {
     UPDATE_EXERCISE_START,
     UPDATE_EXERCISE_SUCCESS,
     UPDATE_EXERCISE_FAIL,
+    DELETE_EXERCISE_START,
+    DELETE_EXERCISE_SUCCESS,
+    DELETE_EXERCISE_FAIL,
+    EDIT_EXERCISE_FIELDS,
 } from '../actions';
 
 const initialState = {
     exercises: [
         {
             name: '',
-            region: '',
-            weight: '',
-            reps: '',
-            sets: ''
+            region: ''
         }
     ],
     fetchingData: false,
@@ -165,6 +166,11 @@ export const reducer = (state = initialState, action) => {
                 ...state,
                 isEditing: true
             }
+        case EDIT_FIELDS:
+            return {
+                ...state,
+                isEditing: true
+            }
         case DELETE_JOURNAL_START:
             return {
                 ...state,
@@ -195,6 +201,7 @@ export const reducer = (state = initialState, action) => {
             }
         case GET_EXERCISE_FAIL:
             return {
+                ...state,
                 error: action.payload
             }
         case ADD_EXERCISE_START:
@@ -206,7 +213,7 @@ export const reducer = (state = initialState, action) => {
         case ADD_EXERCISE_SUCCESS:
             return {
                 ...state,
-                journals: action.payload,
+                data: [...state.data, action.payload],
                 isPosting: false,
                 error: null
             }
@@ -224,12 +231,44 @@ export const reducer = (state = initialState, action) => {
         case UPDATE_EXERCISE_SUCCESS:
             return {
                 ...state,
-                isUpdating: true
+                data: state.data.map(item => {
+                    if (item.id === action.payload.id)
+                    {
+                     return action.payload   
+                    }
+                    return item 
+                }),
+                isUpdating: true,
+                isEditing: false,
+                error: null
             }
         case UPDATE_EXERCISE_FAIL:
             return {
                 ...state,
-                isUpdating: false
+                isUpdating: false,
+                error: action.payload
+            }
+        case DELETE_EXERCISE_START:
+            return {
+                ...state,
+                isDeleting: false
+            }
+        case DELETE_EXERCISE_SUCCESS:
+            return {
+                ...state,
+                isDeleting: true,
+                data: state.data.filter(i => action.payload !== i.id)
+            }
+        case DELETE_EXERCISE_FAIL:
+            return {
+                ...state,
+                isDeleting: false,
+                error: action.payload
+            }
+        case EDIT_EXERCISE_FIELDS:
+            return {
+                ...state,
+                isEditing: true
             }
 
         default: return state;

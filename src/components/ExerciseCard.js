@@ -1,19 +1,34 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { deleteExercise} from '../actions';
 import styled from 'styled-components';
-import {Link} from 'react-router-dom';
-import { CardStyle }from './Styles';
+
+const CardStyle = styled.div`
+  text-align: center;
+  background-color: slategrey;
+`
 
 const ExerciseCard = (props) => {
-  return (
-    <CardStyle>
-      <div>
-        <p>{props.name}</p>
-        <p>Region: {props.region}</p>
-        <p>ID: {props.id}</p>
-        <button> <Link to ={`/update-exercise/${props.id}`}>Update Exercise</Link></button>
-      </div>
-    </CardStyle>
-  )
+    console.log(props);
+
+    return (
+        <div>
+                <CardStyle>
+                    <p>{props.name}</p>                    
+                    <p>Weight: {props.weight}</p>
+                    <p>Reps: {props.reps}</p>
+                    <p>Sets: {props.sets}</p>
+                    <button onClick={() => props.deleteExercise(props.id)}>Delete</button>
+                </CardStyle>
+        </div>
+    )
 }
 
-export default ExerciseCard;
+const mapStateToProps = (state) => {
+    return {
+        data: state.data,
+        isEditing: state.isEditing
+    }
+}
+
+export default connect(mapStateToProps, { deleteExercise })(ExerciseCard);

@@ -45,6 +45,7 @@ export const DELETE_EXERCISE_SUCCESS = 'DELETE_EXERCISE_SUCCESS';
 export const DELETE_EXERCISE_FAIL = 'DELETE_EXERCISE_FAIL';
 
 export const EDIT_FIELDS = "EDIT_FIELDS";
+export const EDIT_EXERCISE_FIELDS = "EDIT_EXERCISE_FIELDS";
 
 export const register = payload => dispatch => {
     console.log(payload, "register");
@@ -188,20 +189,27 @@ export const addExercise = (data) => dispatch => {
     })
 }
 
-export const updateExercise = (id, exercise) => dispatch => {
-    console.log(exercise);
+export const updateExercise= (id) => dispatch => {
+    console.log('edit exercise', id);
     dispatch({type: UPDATE_EXERCISE_START});
     return axiosWithAuth()
-    .put(`/exercises/${id}`, exercise)
+    .put(`/exercises/${id.id}`, id)
     .then(res => {
         console.log(res);
-        dispatch({type: UPDATE_EXERCISE_SUCCESS, payload: res.data});
+        dispatch({type: UPDATE_EXERCISE_SUCCESS, payload: res.data.updated});
     })
     .catch(err => {
         console.log(err);
         dispatch({type: UPDATE_EXERCISE_FAIL, payload: err});
     })
 }
+
+export const editExerciseFields = (i) => {
+    return {
+      type: EDIT_EXERCISE_FIELDS,
+      payload: i
+    };
+  };
 
 export const deleteExercise = (id) => dispatch => {
     dispatch({ type: DELETE_EXERCISE_START })

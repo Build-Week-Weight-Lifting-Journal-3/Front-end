@@ -1,5 +1,4 @@
-import styled, { css } from "styled-components";
-import React from "react";
+import styled from "styled-components";
 
 export const Global = styled.main`
   width: 100%;

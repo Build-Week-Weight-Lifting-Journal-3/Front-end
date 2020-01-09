@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
  import { axiosWithAuth } from '../utils/axiosWithAuth';
- import ExerciseCard from './ExerciseCard';
+ import ListExerciseCard from './ListExerciseCard';
  import styled from 'styled-components';
 
  const GridStyle = styled.div`
@@ -38,7 +38,7 @@ import React, { useState, useEffect } from 'react';
              <GridStyle>
                  {exercises.map((ex) => {
                      return (
-                         <ExerciseCard
+                         <ListExerciseCard
                              key={ex.id}
                              id={ex.id}
                              name={ex.name}
