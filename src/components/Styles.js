@@ -53,7 +53,7 @@ export const Text = styled.p`
   color: ${props => props.color || '#4d4d4d'}
 `;
 
-const CardStyle = styled.div`
+const ExerciseStyle = styled.div`
   text-align: center;
   background-color: slategrey;
 `
