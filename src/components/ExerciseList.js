@@ -47,7 +47,6 @@ const ExerciseList = (props) => {
                             <p>Reps: {e.reps}</p>
                             <p>Sets: {e.sets}</p>
                             <button onClick={() => props.deleteExercise(e.id)}>Delete</button>
-                            <button onClick={() => props.updateExercise(e.id)}>Edit</button>
                         </div>
                     )
                 })}

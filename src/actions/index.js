@@ -167,7 +167,7 @@ export const updateExercise = (id, exercise) => dispatch => {
     console.log(exercise);
     dispatch({type: UPDATE_EXERCISE_START});
     return axiosWithAuth()
-    .put(`/jouexe/${id}`, exercise)
+    .put(`/exercises/${id}`, exercise)
     .then(res => {
         console.log(res);
         dispatch({type: UPDATE_EXERCISE_SUCCESS, payload: res.data});

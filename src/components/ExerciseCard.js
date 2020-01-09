@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 
 const CardStyle = styled.div`
   text-align: center;
@@ -13,6 +14,7 @@ const ExerciseCard = (props) => {
         <p>{props.name}</p>
         <p>Region: {props.region}</p>
         <p>ID: {props.id}</p>
+        <button> <Link to ={`/update-exercise/${props.id}`}>Update Exercise</Link></button>
       </div>
     </CardStyle>
   )
