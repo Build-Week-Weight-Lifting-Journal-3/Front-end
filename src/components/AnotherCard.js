@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const CardStyle = styled.div`
+const ExerciseStyle = styled.div`
   text-align: center;
   box-shadow: 0 7px 4px #111;
   border-radius:5px;
@@ -13,12 +13,12 @@ const CardStyle = styled.div`
 
 const AnotherCard = (props) => {
   return (
-    <CardStyle>
+    <ExerciseStyle>
       <div>
         <p>{props.name}</p>
         <p>{props.region}</p>
       </div>
-   </CardStyle>
+   </ExerciseStyle>
   )
 }
 

@@ -52,3 +52,21 @@ export const Text = styled.p`
   font-family: 'Raleway', sans-serif;
   color: ${props => props.color || '#4d4d4d'}
 `;
+
+const CardStyle = styled.div`
+  text-align: center;
+  background-color: slategrey;
+`
+
+
+const GridStyle = styled.div`
+//   display: grid;
+//   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+//   grid-auto-rows: auto;
+//   grid-gap: 20px;
+//   grid-auto-flow: row;
+//   justify-content: center;
+//   align-items: start;
+//   margin: 0 2rem;
+// `
+
