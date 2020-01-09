@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getJournals, deleteJournal, editJournal, editFields, logout } from '../actions';
+import { getJournals, logout } from '../actions';
 import AddJournal from './AddJournal';
-import EditJournal from './EditJournal';
-import { Link } from 'react-router-dom';
+import JournalCard from './JournalCard';
 import styled from 'styled-components';
 
 const GridStyle = styled.div`
@@ -37,18 +36,15 @@ const JournalList = (props) => {
             <AddJournal />
             {/* <EditJournal /> */}
             <GridStyle>
-                {props.data.map((j) => {
+                {props.data.map(j => {
                     return (
-                        <div key={j.id}>
-                            <Link to='/exercises'><button>{j.name}</button></Link>
-                            <p>{j.date}</p>
-                            <button onClick={() => props.deleteJournal(j.id)}>Delete</button>
-                            <button onClick={() => props.editJournal(j.id)}>Edit</button>
-                        </div>
+                        <JournalCard
+                            key={j.id}
+                            name={j.name}
+                            date={j.date}
+                            id={j.id}
+                        />
                     )
-                        // (!props.isEditing && (
-                        //     <button onClick={() => props.editFields()}>Edit</button>
-                        // ))
                 })}
             </GridStyle>
         </div>
@@ -63,4 +59,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { getJournals, deleteJournal, editJournal, editFields, logout })(JournalList);
+export default connect(mapStateToProps, { getJournals, logout })(JournalList);
