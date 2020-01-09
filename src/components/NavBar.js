@@ -7,11 +7,17 @@ const NavStyle = styled.nav`
   display: flex;
   justify-content: space-evenly;
   font-size: 2rem;
-  background-color: #DEF2F1;
-  // border: 1px solid #DCDCDC;
+  color: red;
+  background-color: slate-grey;
+  border: 1px solid red;
   border-radius: 10px;
   padding: 2%;
   margin: 3%;
+    a{
+      color: red;
+    }
+  
+ 
 `
 
 const NavBar = () => {
