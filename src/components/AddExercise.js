@@ -3,11 +3,10 @@ import { addExercise } from '../actions';
 import { connect } from 'react-redux';
 
 const initialFormValues = {
-    // name: '',
     weight: '',
     reps: '',
     sets: '',
-    journalId: '',
+    journalId: 1,
     exerciseId: ''
 }
 
@@ -27,14 +26,6 @@ const AddExercise = (props) => {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                {/* <input
-                    name='name'
-                    type='text'
-                    placeholder='Exercise Name'
-                    value={input.name}
-                    onChange={handleInputChange}
-                    // required
-                /> */}
                  <input
                     name='weight'
                     type='text'
@@ -56,14 +47,6 @@ const AddExercise = (props) => {
                     type='text'
                     placeholder='Sets'
                     value={input.sets}
-                    onChange={handleInputChange}
-                    // required
-                />
-                <input
-                    name='journalId'
-                    type='text'
-                    placeholder='Journal ID'
-                    value={input.journalId}
                     onChange={handleInputChange}
                     // required
                 />

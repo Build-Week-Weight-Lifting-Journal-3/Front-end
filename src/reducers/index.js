@@ -15,6 +15,7 @@ import {
     EDIT_JOURNAL_START,
     EDIT_JOURNAL_SUCCESS,
     EDIT_JOURNAL_FAIL,
+    EDIT_FIELDS,
     DELETE_JOURNAL_START,
     DELETE_JOURNAL_SUCCESS,
     DELETE_JOURNAL_FAIL,
@@ -27,6 +28,10 @@ import {
     UPDATE_EXERCISE_START,
     UPDATE_EXERCISE_SUCCESS,
     UPDATE_EXERCISE_FAIL,
+    DELETE_EXERCISE_START,
+    DELETE_EXERCISE_SUCCESS,
+    DELETE_EXERCISE_FAIL,
+    EDIT_EXERCISE_FIELDS,
 } from '../actions';
 
 const initialState = {
@@ -42,6 +47,7 @@ const initialState = {
     fetchingData: false,
     isLoggedIn: false,
     isUpdating: false,
+    isEditing: false,
     isPosting: false,
     isDeleting: false,
     error: '',
@@ -151,6 +157,11 @@ export const reducer = (state = initialState, action) => {
                 ...state,
                 isUpdating: false
             }
+        case EDIT_FIELDS:
+            return {
+                ...state,
+                isEditing: true
+            }
         case DELETE_JOURNAL_START:
             return {
                 ...state,
@@ -181,6 +192,7 @@ export const reducer = (state = initialState, action) => {
             }
         case GET_EXERCISE_FAIL:
             return {
+                ...state,
                 error: action.payload
             }
         case ADD_EXERCISE_START:
@@ -192,7 +204,7 @@ export const reducer = (state = initialState, action) => {
         case ADD_EXERCISE_SUCCESS:
             return {
                 ...state,
-                journals: action.payload,
+                data: [...state.data, action.payload],
                 isPosting: false,
                 error: null
             }
@@ -210,12 +222,35 @@ export const reducer = (state = initialState, action) => {
         case UPDATE_EXERCISE_SUCCESS:
             return {
                 ...state,
-                isUpdating: true
+                isUpdating: true,
+                data: action.payload
             }
         case UPDATE_EXERCISE_FAIL:
             return {
                 ...state,
                 isUpdating: false
+            }
+        case DELETE_EXERCISE_START:
+            return {
+                ...state,
+                isDeleting: false
+            }
+        case DELETE_EXERCISE_SUCCESS:
+            return {
+                ...state,
+                isDeleting: true,
+                data: state.data.filter(i => action.payload !== i.id)
+            }
+        case DELETE_EXERCISE_FAIL:
+            return {
+                ...state,
+                isDeleting: false,
+                error: action.payload
+            }
+        case EDIT_EXERCISE_FIELDS:
+            return {
+                ...state,
+                isEditing: true
             }
 
         default: return state;
