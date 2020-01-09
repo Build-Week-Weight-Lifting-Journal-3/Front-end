@@ -4,17 +4,9 @@ import { getJournals } from '../actions';
 import AddJournal from './AddJournal';
 import JournalCard from './JournalCard';
 import styled from 'styled-components';
+import { GridStyle } from "./Styles";
 
-const GridStyle = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-auto-rows: auto;
-  grid-gap: 20px;
-  grid-auto-flow: row;
-  justify-content: center;
-  align-items: start;
-  margin: 0 2rem;
-`
+
 
 const JournalList = (props) => {
 
