@@ -15,6 +15,9 @@ import {
     EDIT_JOURNAL_START,
     EDIT_JOURNAL_SUCCESS,
     EDIT_JOURNAL_FAIL,
+    DELETE_JOURNAL_START,
+    DELETE_JOURNAL_SUCCESS,
+    DELETE_JOURNAL_FAIL,
     GET_EXERCISE_START,
     GET_EXERCISE_SUCCESS,
     GET_EXERCISE_FAIL,
@@ -27,12 +30,6 @@ import {
 } from '../actions';
 
 const initialState = {
-    journals: [
-        {
-            name: '',
-            date: ''
-        }
-    ],
     exercises: [
         {
             name: '',
@@ -46,6 +43,7 @@ const initialState = {
     isLoggedIn: false,
     isUpdating: false,
     isPosting: false,
+    isDeleting: false,
     error: '',
     id: '',
     data: [],
@@ -53,24 +51,9 @@ const initialState = {
 }
 
 export const reducer = (state = initialState, action) => {
+    // console.log(state);
+    // console.log(action);
     switch (action.type) {
-        // case REGISTER_START:
-        //     return {
-        //         ...state,
-        //         fetchingData: true,
-        //         token: action.payload,
-        //         id: action.id
-        //     }
-        // case REGISTER_SUCCESS:
-        //     return {
-        //         ...state,
-        //         fetchingData: false,
-        //         isLoggedIn: true
-        //     }
-        // case REGISTER_FAIL:
-        //     return {
-        //         error: action.payload
-        //     }
         case SIGNUP_START:
             return {
                 ...state,
@@ -120,6 +103,7 @@ export const reducer = (state = initialState, action) => {
             }
         case GET_JOURNAL_FAIL:
             return {
+                ...state,
                 error: action.payload
             }
         case ADD_JOURNAL_START:
@@ -131,8 +115,9 @@ export const reducer = (state = initialState, action) => {
         case ADD_JOURNAL_SUCCESS:
             return {
                 ...state,
-                journals: action.payload,
+                data: [...state.data, action.payload],
                 isPosting: false,
+                // id: action.payload,
                 error: null
             }
         case ADD_JOURNAL_FAIL:
@@ -150,9 +135,82 @@ export const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isUpdating: true,
-                journals: action.payload
+                data: action.payload
+                // data: state.data.map(entry => {
+                //     if (entry.id === action.payload.id)
+                //     {
+                //         return action.payload
+                //     }
+                //     return entry
+                // })
             }
         case EDIT_JOURNAL_FAIL:
+            return {
+                ...state,
+                isUpdating: false
+            }
+        case DELETE_JOURNAL_START:
+            return {
+                ...state,
+                isDeleting: false
+            }
+        case DELETE_JOURNAL_SUCCESS:
+            return {
+                ...state,
+                isDeleting: true,
+                data: state.data.filter(i => action.payload !== i.id)
+            }
+        case DELETE_JOURNAL_FAIL:
+            return {
+                ...state,
+                isDeleting: false,
+                error: action.payload
+            }
+        case GET_EXERCISE_START:
+            return {
+                ...state,
+                fetchingData: true
+            }
+        case GET_EXERCISE_SUCCESS:
+            return {
+                ...state,
+                fetchingData: false,
+                data: action.payload
+            }
+        case GET_EXERCISE_FAIL:
+            return {
+                error: action.payload
+            }
+        case ADD_EXERCISE_START:
+            return {
+                ...state,
+                isPosting: true,
+                error: null
+            }
+        case ADD_EXERCISE_SUCCESS:
+            return {
+                ...state,
+                journals: action.payload,
+                isPosting: false,
+                error: null
+            }
+        case ADD_EXERCISE_FAIL:
+            return {
+                ...state,
+                isPosting: false,
+                error: action.payload
+            }
+        case UPDATE_EXERCISE_START:
+            return {
+                ...state,
+                isUpdating: false
+            }
+        case UPDATE_EXERCISE_SUCCESS:
+            return {
+                ...state,
+                isUpdating: true
+            }
+        case UPDATE_EXERCISE_FAIL:
             return {
                 ...state,
                 isUpdating: false
