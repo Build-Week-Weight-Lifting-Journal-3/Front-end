@@ -38,10 +38,7 @@ const initialState = {
     exercises: [
         {
             name: '',
-            region: '',
-            weight: '',
-            reps: '',
-            sets: ''
+            region: ''
         }
     ],
     fetchingData: false,
@@ -222,13 +219,22 @@ export const reducer = (state = initialState, action) => {
         case UPDATE_EXERCISE_SUCCESS:
             return {
                 ...state,
+                data: state.data.map(item => {
+                    if (item.id === action.payload.id)
+                    {
+                     return action.payload   
+                    }
+                    return item 
+                }),
                 isUpdating: true,
-                data: action.payload
+                isEditing: false,
+                error: null
             }
         case UPDATE_EXERCISE_FAIL:
             return {
                 ...state,
-                isUpdating: false
+                isUpdating: false,
+                error: action.payload
             }
         case DELETE_EXERCISE_START:
             return {

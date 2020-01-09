@@ -9,13 +9,15 @@ const CardStyle = styled.div`
 `
 
 const ListExerciseCard = (props) => {
-    console.log(props);
 
     const [editValue, setEditValue] = useState({
         name: '',
         region: '',
         id: props.id
-    })
+    });
+
+    const [edit, setEdit] = useState(false);
+    console.log(editValue);
 
     const handleChanges = (event) => {
         setEditValue({
@@ -27,12 +29,17 @@ const ListExerciseCard = (props) => {
     const submitChanges = (event) => {
         event.preventDefault();
         props.updateExercise(editValue);
+        setEdit(!edit);
+    }
+
+    const isEditing = () => {
+        setEdit(!edit);
     }
 
     return (
         <div>
-            {props.isEditing ? (
-                <form onSubmit={submitChanges}>
+          {edit ? (
+                 <form>
                     <input
                         type='text'
                         name='name'
@@ -55,19 +62,18 @@ const ListExerciseCard = (props) => {
                     <p>{props.id}</p>
                     {props.data.length === 0 ||
                     (!props.isEditing && (
-                        <button onClick={() => props.editExerciseFields()}>Edit</button>
+                        <button onClick={isEditing}>Edit</button>
                     ))}
                 </CardStyle>
             )}
-            {props.isEditing && (
-                <button onClick={() => props.updateExercise(editValue)}>Submit Edit</button>
+                {edit && (
+                 <button onClick={submitChanges}>Submit Edit</button>
             )}
         </div>
     )
 }
 
 const mapStateToProps = (state) => {
-    // console.log(state);
     return {
         data: state.data,
         isEditing: state.isEditing

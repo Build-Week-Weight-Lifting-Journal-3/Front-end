@@ -25,7 +25,6 @@ const ExerciseCard = (props) => {
 }
 
 const mapStateToProps = (state) => {
-    // console.log(state);
     return {
         data: state.data,
         isEditing: state.isEditing

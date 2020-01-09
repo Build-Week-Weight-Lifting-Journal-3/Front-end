@@ -188,13 +188,13 @@ export const addExercise = (data) => dispatch => {
 }
 
 export const updateExercise= (id) => dispatch => {
-    console.log('edit item', id);
+    console.log('edit exercise', id);
     dispatch({type: UPDATE_EXERCISE_START});
     return axiosWithAuth()
     .put(`/exercises/${id.id}`, id)
     .then(res => {
         console.log(res);
-        dispatch({type: UPDATE_EXERCISE_SUCCESS, payload: res.data});
+        dispatch({type: UPDATE_EXERCISE_SUCCESS, payload: res.data.updated});
     })
     .catch(err => {
         console.log(err);

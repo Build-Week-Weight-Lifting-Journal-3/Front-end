@@ -20,8 +20,8 @@ const GridStyle = styled.div`
 const ExerciseList = (props) => {
 
     useEffect(() => {
-        props.getExercises();
-    }, [props])
+        props.getExercises(+localStorage.getItem('id'));
+    }, [])
 
     const signOut = () => {
         localStorage.clear('token');
