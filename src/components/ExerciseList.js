@@ -21,7 +21,7 @@ const ExerciseList = (props) => {
 
     useEffect(() => {
         props.getExercises();
-    }, [])
+    }, [props])
 
     const signOut = () => {
         localStorage.clear('token');

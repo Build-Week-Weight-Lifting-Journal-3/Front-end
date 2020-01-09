@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { deleteExercise, updateExercise, editExerciseFields } from '../actions';
+import { deleteExercise} from '../actions';
 import styled from 'styled-components';
 
 const CardStyle = styled.div`
@@ -11,31 +11,11 @@ const CardStyle = styled.div`
 const ExerciseCard = (props) => {
     console.log(props);
 
-    const [editValue, setEditValue] = useState({
-        name: '',
-        region: '',
-        weight: '',
-        reps: '',
-        sets: '',
-        id: props.id
-    })
-
-    const handleChanges = (event) => {
-        setEditValue({
-            ...editValue,
-            [event.target.name]: event.target.value
-        })
-    }
-
-    const submitChanges = (event) => {
-        event.preventDefault();
-        props.updateExercise(editValue);
-    }
-
     return (
         <div>
                 <CardStyle>
-                    <p>{props.name}</p>                    <p>Weight: {props.weight}</p>
+                    <p>{props.name}</p>                    
+                    <p>Weight: {props.weight}</p>
                     <p>Reps: {props.reps}</p>
                     <p>Sets: {props.sets}</p>
                     <button onClick={() => props.deleteExercise(props.id)}>Delete</button>
@@ -52,4 +32,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { deleteExercise, updateExercise, editExerciseFields })(ExerciseCard);
+export default connect(mapStateToProps, { deleteExercise })(ExerciseCard);

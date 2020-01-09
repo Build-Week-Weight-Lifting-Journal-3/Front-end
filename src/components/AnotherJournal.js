@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from "axios"
 import AnotherCard from './AnotherCard';
 import styled from 'styled-components';
 import { axiosWithAuth } from '../utils/axiosWithAuth';

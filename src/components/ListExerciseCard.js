@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { deleteExercise, updateExercise, editExerciseFields } from '../actions';
+import { updateExercise, editExerciseFields } from '../actions';
 import styled from 'styled-components';
 
 const CardStyle = styled.div`
@@ -75,4 +74,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { deleteExercise, updateExercise, editExerciseFields })(ListExerciseCard);
+export default connect(mapStateToProps, { updateExercise, editExerciseFields })(ListExerciseCard);
