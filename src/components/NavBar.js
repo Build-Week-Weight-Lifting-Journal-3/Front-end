@@ -82,8 +82,8 @@ const NavBar = (props) => {
 
   return (
     <NavStyle>
-      <a href='/' ref={e => (home = e)} onMouseEnter={scaleUp} onMouseLeave={scaleDown}>Home</a>
-      <a href='/' ref={e => (about = e)} onMouseEnter={scaleUp2} onMouseLeave={scaleDown2}>About</a>
+      <a href='https://distancefitness.netlify.com/' ref={e => (home = e)} onMouseEnter={scaleUp} onMouseLeave={scaleDown}>Home</a>
+      <a href='https://distancefitness.netlify.com/subpages/about.html' ref={e => (about = e)} onMouseEnter={scaleUp2} onMouseLeave={scaleDown2}>About</a>
       <NavLink to='/journal' ref={e => (journals = e)} onMouseEnter={scaleUp3} onMouseLeave={scaleDown3}>Journals</NavLink>
       <NavLink to='/' ref={e => (login = e)} onMouseEnter={scaleUp4} onMouseLeave={scaleDown4} onClick={signOut}>{props.isLoggedIn ? 'Logout' : 'Login'}</NavLink>
     </NavStyle>
