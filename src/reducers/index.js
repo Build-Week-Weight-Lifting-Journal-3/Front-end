@@ -46,6 +46,8 @@ const initialState = {
     isDeleting: false,
     error: '',
     id: '',
+    JournalId: '',
+    ExerciseId: '',
     data: [],
     payload: {}
 }

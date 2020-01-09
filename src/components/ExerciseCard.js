@@ -12,12 +12,14 @@ const ExerciseCard = (props) => {
     <CardStyle>
       <div>
         <p>{props.name}</p>
-        <p>Weight: {props.weight}</p>
-        <p>Reps: {props.reps}</p>
-        <p>Sets: {props.sets}</p>
+        <p>Region: {props.region}</p>
+        <p>ID: {props.id}</p>
+        <button> <Link to ={`/update-exercise/${props.id}`}>Update Exercise</Link></button>
       </div>
     </CardStyle>
   )
 }
+
+
 
 export default ExerciseCard;
