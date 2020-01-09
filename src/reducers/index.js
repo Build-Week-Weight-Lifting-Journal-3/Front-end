@@ -6,6 +6,7 @@ import {
     LOGIN_START,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
+    LOGOUT,
     GET_JOURNAL_START,
     GET_JOURNAL_SUCCESS,
     GET_JOURNAL_FAIL,
@@ -93,6 +94,10 @@ export const reducer = (state = initialState, action) => {
         case LOGIN_FAIL:
             return {
                 error: action.payload
+            }
+        case LOGOUT:
+            return {
+                isLoggedIn: false
             }
         case GET_JOURNAL_START:
             return {

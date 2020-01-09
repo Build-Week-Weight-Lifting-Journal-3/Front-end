@@ -10,8 +10,7 @@ const CardStyle = styled.div`
 `
 
 const JournalCard = (props) => {
-    console.log(props);
-
+    // console.log(props);
     const [editValue, setEditValue] = useState({
         name: '',
         date: '',
