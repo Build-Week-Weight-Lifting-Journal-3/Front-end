@@ -56,8 +56,9 @@ const JournalCard = (props) => {
                 </form>
             ) : (
                 <CardStyle>
-                    <Link to='/exercises'><button>{props.name}</button></Link>
+                    <h2>{props.name}</h2>
                     <p>{props.date}</p>
+                    <Link to='/exercises'><button>Exercises</button></Link>
                     {props.data.length === 0 ||
                     (!props.isEditing && (
                         <button onClick={isEditing}>Edit</button>
