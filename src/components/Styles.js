@@ -53,13 +53,12 @@ export const Text = styled.p`
   color: ${props => props.color || '#4d4d4d'}
 `;
 
-const ExerciseStyle = styled.div`
+export const ExerciseStyle = styled.div`
   text-align: center;
   background-color: slategrey;
 `
 
-
-const GridStyle = styled.div`
+export const GridStyle = styled.div`
 //   display: grid;
 //   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 //   grid-auto-rows: auto;
@@ -69,4 +68,3 @@ const GridStyle = styled.div`
 //   align-items: start;
 //   margin: 0 2rem;
 // `
-
