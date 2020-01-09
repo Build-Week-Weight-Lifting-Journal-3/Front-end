@@ -1,6 +1,6 @@
 // import * as types from '../types';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
-import { history } from '../index';
+// import { history } from '../index';
 
 export const SIGNUP_START = 'SIGNUP_START';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
@@ -9,6 +9,8 @@ export const SIGNUP_FAIL = 'SIGNUP_FAIL';
 export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
+
+export const LOGOUT = 'LOGOUT';
 
 export const GET_JOURNAL_START = 'GET_JOURNAL_START';
 export const GET_JOURNAL_SUCCESS = 'GET_JOURNAL_SUCCESS';
@@ -42,6 +44,8 @@ export const DELETE_EXERCISE_START = 'DELETE_EXERCISE_START';
 export const DELETE_EXERCISE_SUCCESS = 'DELETE_EXERCISE_SUCCESS';
 export const DELETE_EXERCISE_FAIL = 'DELETE_EXERCISE_FAIL';
 
+export const EDIT_FIELDS = "EDIT_FIELDS";
+
 export const register = payload => dispatch => {
     console.log(payload, "register");
     dispatch({ type: SIGNUP_START });
@@ -51,7 +55,7 @@ export const register = payload => dispatch => {
         console.log(res.data);
         dispatch({ type: SIGNUP_SUCCESS, payload: res.data });
         window.localStorage.setItem("token", res.data.token);
-        history.push("/");
+        // history.push("/");
       })
       .catch(err => {
         console.log(err, "Wouldn't it be nice if I worked?");
@@ -60,19 +64,31 @@ export const register = payload => dispatch => {
   };
 
 export const login = (credentials) => dispatch => {
-    console.log(credentials);
+    // console.log(credentials);
     dispatch({ type: LOGIN_START });
     return axiosWithAuth()
     .post('auth/login', credentials)
     .then(res => {
-        console.log(res);
+        // console.log(res);
         localStorage.setItem('token', res.data.token);
-        dispatch({ type: LOGIN_SUCCESS, payload: res.data });
+        dispatch({ type: LOGIN_SUCCESS, payload: res.data.id });
         // history.push('/journal');
     })
     .catch(err => {
         // console.log(err);
         dispatch({ type: LOGIN_FAIL, payload: err })
+    })
+}
+
+export const logout = (credentials) => dispatch => {
+    dispatch({ type: LOGOUT });
+    return axiosWithAuth()
+    .put(`auth/logout`, credentials)
+    .then((res) => {
+        console.log(res);
+    })
+    .catch((err) => {
+        console.log(err);
     })
 }
 
@@ -120,6 +136,13 @@ export const editJournal = (id) => dispatch => {
     })
 }
 
+export const editFields = i => {
+    return {
+      type: EDIT_FIELDS,
+      payload: i
+    };
+  };
+
 export const deleteJournal = (id) => dispatch => {
     dispatch({ type: DELETE_JOURNAL_START })
     return axiosWithAuth()
@@ -138,7 +161,7 @@ export const getExercises = () => dispatch => {
     // console.log();
     dispatch({ type: GET_EXERCISE_START });
     return axiosWithAuth()
-    .get('/exercises')
+    .get(`/jouexe/`)
     .then(res => {
         console.log(res);
         dispatch({ type: GET_EXERCISE_SUCCESS, payload: res.data });
@@ -152,7 +175,7 @@ export const getExercises = () => dispatch => {
 export const addExercise = (data) => dispatch => {
     dispatch ({ type: ADD_EXERCISE_START });
     return axiosWithAuth()
-    .post('/exercises', data)
+    .post('/jouexe/', data)
     .then(res => {
         console.log(res);
         dispatch({ type: ADD_EXERCISE_SUCCESS, payload: res.data });
@@ -181,10 +204,10 @@ export const updateExercise = (id, exercise) => dispatch => {
 export const deleteExercise = (id) => dispatch => {
     dispatch({ type: DELETE_EXERCISE_START })
     return axiosWithAuth()
-    .delete(`/exercises/${id}`, {headers: {Authorization:localStorage.getItem('token')}})
+    .delete(`/jouexe/${id}`, {headers: {Authorization:localStorage.getItem('token')}})
     .then(res => {
         console.log(res);
-        dispatch({ type: DELETE_EXERCISE_SUCCESS, payload: id});
+        dispatch({ type: DELETE_EXERCISE_SUCCESS, payload: id.id});
     })
     .catch(err => {
         console.log(err);

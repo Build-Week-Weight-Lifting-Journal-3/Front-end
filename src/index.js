@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
-import createBrowserHistory from "history/createBrowserHistory";
+import { createBrowserHistory } from 'history';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import App from './App';
@@ -24,6 +24,6 @@ const rootElement = document.getElementById('root');
 ReactDOM.render(
     <Provider store={store}>
         <App />
-    </Provider>, 
+    </Provider>,
     rootElement
 )

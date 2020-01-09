@@ -17,10 +17,10 @@ function Signup(props) {
       setPayload({ ...payload, [event.target.name]: event.target.value });
     };
   
-    const handleSubmit = event => {
+    const handleSubmit = (event) => {
         event.preventDefault();
         props.register(payload);
-        props.history.push("/journals");
+        props.history.push("/");
   
       console.log(handleSubmit);
     };
