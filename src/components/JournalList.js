@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getJournals, deleteJournal, editJournal } from '../actions';
+import { getJournals, logout } from '../actions';
 import AddJournal from './AddJournal';
-import {Link} from 'react-router-dom';
+import JournalCard from './JournalCard';
 import styled from 'styled-components';
 
 const GridStyle = styled.div`
@@ -17,27 +17,33 @@ const GridStyle = styled.div`
 `
 
 const JournalList = (props) => {
-    // console.log();
-    
+
     useEffect(() => {
         // console.log('blerp')
         props.getJournals();
     }, [])
 
+    const signOut = () => {
+        localStorage.clear('token');
+        props.logout();
+        props.history.push('/');
+    }
+
     return (
         <div>
-            <Link to='/'><button>Logout</button></Link>
+            <button onClick={signOut}>Logout</button>
             <h1>My Journal</h1>
             <AddJournal />
+            {/* <EditJournal /> */}
             <GridStyle>
-                {props.data.map((j) => {
+                {props.data.map(j => {
                     return (
-                        <div key={j.id}>
-                            <Link to='/exercises'><button>{j.name}</button></Link>
-                            <p>{j.date}</p>
-                            <button onClick={() => props.deleteJournal(j.id)}>Delete</button>
-                            <button onClick={() => props.editJournal(j.id)}>Edit</button>
-                        </div>
+                        <JournalCard
+                            key={j.id}
+                            name={j.name}
+                            date={j.date}
+                            id={j.id}
+                        />
                     )
                 })}
             </GridStyle>
@@ -53,4 +59,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { getJournals, deleteJournal, editJournal })(JournalList);
+export default connect(mapStateToProps, { getJournals, logout })(JournalList);

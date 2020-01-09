@@ -8,8 +8,12 @@ const initialFormValues = {
 }
 
 const AddJournal = (props) => {
-    const [input, setInput] = useState(initialFormValues);
-    // console.log(input);
+    const [input, setInput] = useState({
+        name: '',
+        date: '',
+        userId: `${props.id}`
+    });
+    console.log('LOOK HERE', props.id);
 
     const handleInputChange = (event) => {
         setInput({ ...input, [event.target.name]: event.target.value });
@@ -18,7 +22,11 @@ const AddJournal = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         props.addJournal(input);
-        setInput(initialFormValues);
+        setInput({
+            name: '',
+            date: '',
+            userId: props.id
+        });
     }
 
     return (
@@ -47,8 +55,9 @@ const AddJournal = (props) => {
 }
 
 const mapStateToProps = (state) => {
+    // console.log(state);
     return {
-        ...state
+        id: state.id
     }
 }
 
