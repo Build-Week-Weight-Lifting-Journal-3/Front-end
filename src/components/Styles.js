@@ -56,15 +56,20 @@ export const Text = styled.p`
 export const ExerciseStyle = styled.div`
   text-align: center;
   background-color: slategrey;
-`
+`;
+
+export const CardStyle = styled.div`
+  text-align: center;
+  background-color: slategrey;
+`;
 
 export const GridStyle = styled.div`
-//   display: grid;
-//   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-//   grid-auto-rows: auto;
-//   grid-gap: 20px;
-//   grid-auto-flow: row;
-//   justify-content: center;
-//   align-items: start;
-//   margin: 0 2rem;
-// `
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-auto-rows: auto;
+  grid-gap: 20px;
+  grid-auto-flow: row;
+  justify-content: center;
+  align-items: start;
+  margin: 0 2rem;
+`;
