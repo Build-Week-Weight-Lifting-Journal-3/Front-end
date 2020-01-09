@@ -71,6 +71,7 @@ export const login = (credentials) => dispatch => {
     .then(res => {
         // console.log(res);
         localStorage.setItem('token', res.data.token);
+        localStorage.setItem('id', res.data.id);
         dispatch({ type: LOGIN_SUCCESS, payload: res.data.id });
         // history.push('/journal');
     })
@@ -85,18 +86,18 @@ export const logout = (credentials) => dispatch => {
     return axiosWithAuth()
     .put(`auth/logout`, credentials)
     .then((res) => {
-        console.log(res);
+        // console.log(res);
     })
     .catch((err) => {
-        console.log(err);
+        // console.log(err);
     })
 }
 
-export const getJournals = () => dispatch => {
+export const getJournals = (id) => dispatch => {
     // console.log();
     dispatch({ type: GET_JOURNAL_START });
     return axiosWithAuth()
-    .get('/journals')
+    .get(`/journals/users/${id}`)
     .then(res => {
         // console.log(res);
         dispatch({ type: GET_JOURNAL_SUCCESS, payload: res.data });
@@ -108,6 +109,7 @@ export const getJournals = () => dispatch => {
 }
 
 export const addJournal = (data) => dispatch => {
+    console.log(data);
     dispatch ({ type: ADD_JOURNAL_START });
     return axiosWithAuth()
     .post('/journals', data)
@@ -128,7 +130,7 @@ export const editJournal = (id) => dispatch => {
     .put(`/journals/${id.id}`, id)
     .then(res => {
         console.log(res);
-        dispatch({type: EDIT_JOURNAL_SUCCESS, payload: res.data});
+        dispatch({type: EDIT_JOURNAL_SUCCESS, payload: res.data.updated});
     })
     .catch(err => {
         console.log(err);

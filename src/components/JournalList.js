@@ -20,7 +20,7 @@ const JournalList = (props) => {
 
     useEffect(() => {
         // console.log('blerp')
-        props.getJournals();
+        props.getJournals(+localStorage.getItem('id'));
     }, [])
 
     return (

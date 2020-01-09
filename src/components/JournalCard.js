@@ -10,12 +10,13 @@ const CardStyle = styled.div`
 `
 
 const JournalCard = (props) => {
-    // console.log(props);
     const [editValue, setEditValue] = useState({
         name: '',
         date: '',
         id: props.id
-    })
+    });
+    const [edit, setEdit] = useState(false);
+    console.log(editValue);
 
     const handleChanges = (event) => {
         setEditValue({
@@ -27,12 +28,17 @@ const JournalCard = (props) => {
     const submitChanges = (event) => {
         event.preventDefault();
         props.editJournal(editValue);
+        setEdit(!edit);
+    }
+
+    const isEditing = () => {
+        setEdit(!edit);
     }
 
     return (
         <div>
-            {props.isEditing ? (
-                <form onSubmit={submitChanges}>
+            {edit ? (
+                <form>
                     <input
                         type='text'
                         name='name'
@@ -54,13 +60,13 @@ const JournalCard = (props) => {
                     <p>{props.date}</p>
                     {props.data.length === 0 ||
                     (!props.isEditing && (
-                        <button onClick={() => props.editFields()}>Edit</button>
+                        <button onClick={isEditing}>Edit</button>
                     ))}
                     <button onClick={() => props.deleteJournal(props.id)}>Delete</button>
                 </CardStyle>
             )}
-            {props.isEditing && (
-                <button onClick={() => props.editJournal(editValue)}>Submit</button>
+            {edit && (
+                <button onClick={submitChanges}>Submit</button>
             )}
         </div>
     )

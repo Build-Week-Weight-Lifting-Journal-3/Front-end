@@ -143,20 +143,22 @@ export const reducer = (state = initialState, action) => {
         case EDIT_JOURNAL_SUCCESS:
             return {
                 ...state,
+                data: state.data.map(item => {
+                    if (item.id === action.payload.id)
+                    {
+                     return action.payload   
+                    }
+                    return item 
+                }),
                 isUpdating: true,
-                data: action.payload
-                // data: state.data.map(entry => {
-                //     if (entry.id === action.payload.id)
-                //     {
-                //         return action.payload
-                //     }
-                //     return entry
-                // })
+                isEditing: false,
+                error: null
             }
         case EDIT_JOURNAL_FAIL:
             return {
                 ...state,
-                isUpdating: false
+                isUpdating: false,
+                error: action.payload
             }
         case EDIT_FIELDS:
             return {
