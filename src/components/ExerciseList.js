@@ -31,7 +31,7 @@ const ExerciseList = (props) => {
 
     return (
         <div>
-            <button onClick={signOut}>Logout</button>
+
             <ListofExercises />
             <h1>My Exercises</h1>
             <AddExercise/>
