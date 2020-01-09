@@ -15,6 +15,7 @@ import {
     EDIT_JOURNAL_START,
     EDIT_JOURNAL_SUCCESS,
     EDIT_JOURNAL_FAIL,
+    EDIT_FIELDS,
     DELETE_JOURNAL_START,
     DELETE_JOURNAL_SUCCESS,
     DELETE_JOURNAL_FAIL,
@@ -42,6 +43,7 @@ const initialState = {
     fetchingData: false,
     isLoggedIn: false,
     isUpdating: false,
+    isEditing: false,
     isPosting: false,
     isDeleting: false,
     error: '',
@@ -150,6 +152,11 @@ export const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isUpdating: false
+            }
+        case EDIT_FIELDS:
+            return {
+                ...state,
+                isEditing: true
             }
         case DELETE_JOURNAL_START:
             return {

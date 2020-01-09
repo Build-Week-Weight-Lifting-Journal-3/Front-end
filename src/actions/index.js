@@ -136,7 +136,7 @@ export const editJournal = (id) => dispatch => {
     })
 }
 
-export const editFields = i => {
+export const editFields = (i) => {
     return {
       type: EDIT_FIELDS,
       payload: i
