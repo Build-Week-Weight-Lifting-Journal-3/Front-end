@@ -14,11 +14,11 @@ const ExerciseEdit = (props) => {
 
     useEffect(() => {
         axiosWithAuth
-        .get(`/exercises/${id}`)
+        .get(`/exercises/${exercise.id}`)
         .then(response => setExercise(response.data))
         .catch(error => (error))
         console.log(exercise)
-    }, );
+    },);
 
     const changeHandler = (e) => {
         e.preventDefault();
@@ -33,11 +33,11 @@ const ExerciseEdit = (props) => {
     const handleSubmit = e => {
         e.preventDefault();
         axiosWithAuth
-        .put(`/exercises/${id}`, exercise)
+        .put(`/exercises/${exercise.id}`, exercise)
         .then(response => {
             console.log('exercise', response);
             setExercise(response.data);
-            props.history.push(`/exercises/`);
+            props.history.push(`/exercises/${exercise.id}`);
         })
         .catch(err => {
             console.error(err);
@@ -50,9 +50,9 @@ const ExerciseEdit = (props) => {
             <form onSubmit={handleSubmit}>
                 <input
                 type='text'
-                name='id'
-                placeholder="ID"
-                value={exercise.id}
+                name='name'
+                placeholder="Name"
+                value={exercise.name}
                 onChange={changeHandler}
                 />
                 <input 
