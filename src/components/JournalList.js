@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getJournals, logout } from '../actions';
+import { getJournals } from '../actions';
 import AddJournal from './AddJournal';
 import JournalCard from './JournalCard';
 import styled from 'styled-components';
@@ -20,21 +20,13 @@ const JournalList = (props) => {
 
     useEffect(() => {
         // console.log('blerp')
-        props.getJournals();
+        props.getJournals(+localStorage.getItem('id'));
     }, [])
-
-    const signOut = () => {
-        localStorage.clear('token');
-        props.logout();
-        props.history.push('/');
-    }
 
     return (
         <div>
-            <button onClick={signOut}>Logout</button>
             <h1>My Journal</h1>
             <AddJournal />
-            {/* <EditJournal /> */}
             <GridStyle>
                 {props.data.map(j => {
                     return (
@@ -55,8 +47,7 @@ const mapStateToProps = (state) => {
     // console.log(state);
     return {
         data: state.data,
-        isEditing: state.isEditing
     }
 }
 
-export default connect(mapStateToProps, { getJournals, logout })(JournalList);
+export default connect(mapStateToProps, { getJournals, })(JournalList);

@@ -1,7 +1,9 @@
-import React, { useRef } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useRef } from 'react';
+import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import { gsap, Linear } from 'gsap';
-import styled from "styled-components";
+import styled from 'styled-components';
+import { logout } from '../actions';
 
 const NavStyle = styled.nav`
   display: flex;
@@ -14,7 +16,7 @@ const NavStyle = styled.nav`
   margin: 3%;
 `
 
-const NavBar = () => {
+const NavBar = (props) => {
   let home = useRef(null);
   let about = useRef(null);
   let journals = useRef(null);
@@ -72,14 +74,27 @@ const NavBar = () => {
     });
   }
 
+  const signOut = () => {
+    localStorage.clear('token');
+    props.logout();
+    // props.history.push('/');
+}
+
   return (
     <NavStyle>
-      <a href='/' ref={e => (home = e)} onMouseEnter={scaleUp} onMouseLeave={scaleDown}>Home</a>
-      <a href='/' ref={e => (about = e)} onMouseEnter={scaleUp2} onMouseLeave={scaleDown2}>About</a>
+      <a href='https://distancefitness.netlify.com/' ref={e => (home = e)} onMouseEnter={scaleUp} onMouseLeave={scaleDown}>Home</a>
+      <a href='https://distancefitness.netlify.com/subpages/about.html' ref={e => (about = e)} onMouseEnter={scaleUp2} onMouseLeave={scaleDown2}>About</a>
       <NavLink to='/journal' ref={e => (journals = e)} onMouseEnter={scaleUp3} onMouseLeave={scaleDown3}>Journals</NavLink>
-      <NavLink to='/' ref={e => (login = e)} onMouseEnter={scaleUp4} onMouseLeave={scaleDown4}>Login</NavLink>
+      <NavLink to='/' ref={e => (login = e)} onMouseEnter={scaleUp4} onMouseLeave={scaleDown4} onClick={signOut}>{props.isLoggedIn ? 'Logout' : 'Login'}</NavLink>
     </NavStyle>
   )
 }
 
-export default NavBar;
+const mapStateToProps = (state) => {
+  // console.log(state);
+  return {
+      isLoggedIn: state.isLoggedIn
+  }
+}
+
+export default connect(mapStateToProps, { logout })(NavBar);

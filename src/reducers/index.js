@@ -6,6 +6,7 @@ import {
     LOGIN_START,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
+    LOGOUT,
     GET_JOURNAL_START,
     GET_JOURNAL_SUCCESS,
     GET_JOURNAL_FAIL,
@@ -15,6 +16,7 @@ import {
     EDIT_JOURNAL_START,
     EDIT_JOURNAL_SUCCESS,
     EDIT_JOURNAL_FAIL,
+    EDIT_FIELDS,
     DELETE_JOURNAL_START,
     DELETE_JOURNAL_SUCCESS,
     DELETE_JOURNAL_FAIL,
@@ -42,6 +44,7 @@ const initialState = {
     fetchingData: false,
     isLoggedIn: false,
     isUpdating: false,
+    isEditing: false,
     isPosting: false,
     isDeleting: false,
     error: '',
@@ -92,6 +95,10 @@ export const reducer = (state = initialState, action) => {
             return {
                 error: action.payload
             }
+        case LOGOUT:
+            return {
+                isLoggedIn: false
+            }
         case GET_JOURNAL_START:
             return {
                 ...state,
@@ -136,20 +143,27 @@ export const reducer = (state = initialState, action) => {
         case EDIT_JOURNAL_SUCCESS:
             return {
                 ...state,
+                data: state.data.map(item => {
+                    if (item.id === action.payload.id)
+                    {
+                     return action.payload   
+                    }
+                    return item 
+                }),
                 isUpdating: true,
-                data: action.payload
-                // data: state.data.map(entry => {
-                //     if (entry.id === action.payload.id)
-                //     {
-                //         return action.payload
-                //     }
-                //     return entry
-                // })
+                isEditing: false,
+                error: null
             }
         case EDIT_JOURNAL_FAIL:
             return {
                 ...state,
-                isUpdating: false
+                isUpdating: false,
+                error: action.payload
+            }
+        case EDIT_FIELDS:
+            return {
+                ...state,
+                isEditing: true
             }
         case DELETE_JOURNAL_START:
             return {

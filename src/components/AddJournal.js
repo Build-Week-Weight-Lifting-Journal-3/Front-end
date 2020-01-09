@@ -8,10 +8,11 @@ const initialFormValues = {
 }
 
 const AddJournal = (props) => {
+    const [id] = useState(+localStorage.getItem('id'));
     const [input, setInput] = useState({
         name: '',
         date: '',
-        userId: `${props.id}`
+        userId: id
     });
     console.log('LOOK HERE', props.id);
 
@@ -25,7 +26,7 @@ const AddJournal = (props) => {
         setInput({
             name: '',
             date: '',
-            userId: props.id
+            userId: id
         });
     }
 
