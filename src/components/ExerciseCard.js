@@ -1,11 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
+import { CardStyle }from './Styles';
 
-const CardStyle = styled.div`
-  text-align: center;
-  background-color: slategrey;
-`
+
 
 const ExerciseCard = (props) => {
   return (

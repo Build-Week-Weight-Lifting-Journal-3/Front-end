@@ -1,20 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ExerciseStyle }from './Styles';
 
-const CardStyle = styled.div`
-  text-align: center;
-  background-color: slategrey;
-`
 
-const ExerciseCard = (props) => {
+
+
+const AnotherCard = (props) => {
   return (
-    <CardStyle>
+    <ExerciseStyle>
       <div>
         <p>{props.name}</p>
         <p>{props.region}</p>
       </div>
-    </CardStyle>
+   </ExerciseStyle>
   )
 }
 
-export default ExerciseCard;
+export default AnotherCard;
