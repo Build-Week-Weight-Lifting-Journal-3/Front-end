@@ -26,7 +26,7 @@ const AddJournal = (props) => {
         setInput({
             name: '',
             date: '',
-            userId: props.id
+            userId: id
         });
     }
 
